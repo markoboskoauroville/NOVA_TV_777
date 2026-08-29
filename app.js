@@ -35,8 +35,10 @@ function tickCountdown() {
 }
 
 function daysLeft() {
+  // floor, so this agrees with the whole-days figure the countdown shows.
+  // ceil put 273 on the hub while the hero said 272, which is one fact and two numbers.
   const target = new Date((DATA && DATA.event && DATA.event.start) || TARGET_FALLBACK);
-  return Math.max(0, Math.ceil((target - new Date()) / 86400e3));
+  return Math.max(0, Math.floor((target - new Date()) / 86400e3));
 }
 
 /* ── data ─────────────────────────────────────────────── */
