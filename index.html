@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nova TV 777 · 28. 5. 2027.</title>
+<meta name="description" content="Dvanaest sati, dvanaest tajnih DJ-eva, jedna zgrada. Petak 28. svibnja 2027., od 19:00 do 07:00, dvorana Amber, Zagreb.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:wght@300;400;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="spine"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+<div class="topbar">
+  <a class="brandmark" href="index.html">NOVA TV <b>777</b></a>
+  <div class="navlinks">
+    <a href="#lineup" data-i18n="line_kick">Lineup</a>
+    <a href="#apply" data-i18n="nav_apply">Prijava</a>
+    <a href="hub.html" data-i18n="nav_hub">Hub</a>
+    <div class="langswitch">
+      <button data-lang="hr" aria-pressed="true">HR</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <p class="eyebrow" data-i18n="hero_eyebrow">Nova TV · 27 godina · dvorana Amber</p>
+    <p class="triple">777</p>
+    <h1 class="hero-title" data-i18n="hero_title">Dvanaest sati, dvanaest tajnih DJ-eva, jedna zgrada.</h1>
+    <p class="hero-sub" data-i18n="hero_sub">Interni DJ-evi Nove TV.</p>
+    <p class="hero-when" data-i18n="hero_when">Petak 28. 5. 2027. · 19:00 → subota 07:00</p>
+  </div>
+
+  <div class="countdown" id="cd">
+    <div class="cd-cell"><div class="cd-num" id="cd-d">—</div><div class="cd-lab" data-i18n="cd_days">dana</div></div>
+    <div class="cd-cell"><div class="cd-num" id="cd-h">—</div><div class="cd-lab" data-i18n="cd_hours">sati</div></div>
+    <div class="cd-cell"><div class="cd-num" id="cd-m">—</div><div class="cd-lab" data-i18n="cd_mins">minuta</div></div>
+    <div class="cd-cell"><div class="cd-num" id="cd-s">—</div><div class="cd-lab" data-i18n="cd_secs">sekundi</div></div>
+  </div>
+  <p class="cd-foot" id="cd-foot" data-i18n="cd_foot">do prvog beata</p>
+
+  <section id="why">
+    <p class="kicker" data-i18n="coin_kick">Aritmetika</p>
+    <h2 data-i18n="coin_h">Zašto baš 777</h2>
+    <p class="dek" data-i18n="coin_lead">Datum nije biran zbog simbolike.</p>
+
+    <div class="ledger">
+      <div class="ledger-row"><span class="ledger-n">27</span>
+        <span><span class="ledger-t" data-i18n="c1_t">27 godina</span><span class="ledger-d" data-i18n="c1_d"></span></span></div>
+      <div class="ledger-row"><span class="ledger-n">7</span>
+        <span><span class="ledger-t" data-i18n="c2_t">7 katova</span><span class="ledger-d" data-i18n="c2_d"></span></span></div>
+      <div class="ledger-row"><span class="ledger-n">7→7</span>
+        <span><span class="ledger-t" data-i18n="c3_t">Od 7 do 7</span><span class="ledger-d" data-i18n="c3_d"></span></span></div>
+      <div class="ledger-row"><span class="ledger-n">7</span>
+        <span><span class="ledger-t" data-i18n="c4_t">7 boja</span><span class="ledger-d" data-i18n="c4_d"></span></span></div>
+      <div class="ledger-row"><span class="ledger-n">PET</span>
+        <span><span class="ledger-t" data-i18n="c5_t">Pada u petak</span><span class="ledger-d" data-i18n="c5_d"></span></span></div>
+      <div class="ledger-row"><span class="ledger-n">12</span>
+        <span><span class="ledger-t" data-i18n="c6_t">12 slotova</span><span class="ledger-d" data-i18n="c6_d"></span></span></div>
+      <div class="ledger-row"><span class="ledger-n">777</span>
+        <span><span class="ledger-t" data-i18n="c7_t">777</span><span class="ledger-d" data-i18n="c7_d"></span></span></div>
+    </div>
+  </section>
+
+  <section id="concept">
+    <p class="kicker" data-i18n="con_kick">Koncept</p>
+    <h2 data-i18n="con_h">Ekipa iza kamere ide za pult</h2>
+    <p data-i18n="con_p1"></p>
+    <p data-i18n="con_p2"></p>
+    <p data-i18n="con_p3"></p>
+  </section>
+
+  <section id="lineup">
+    <p class="kicker" data-i18n="line_kick">Lineup</p>
+    <h2 data-i18n="line_h">Dvanaest slotova</h2>
+    <p class="dek" data-i18n="line_lead"></p>
+    <div class="slots" id="slots"></div>
+  </section>
+
+  <section id="venue">
+    <p class="kicker" data-i18n="ven_kick">Lokacija</p>
+    <h2 data-i18n="ven_h">Dvorana Amber</h2>
+    <p data-i18n="ven_p"></p>
+  </section>
+
+  <section id="tickets">
+    <p class="kicker" data-i18n="tic_kick">Ulaznice</p>
+    <h2 data-i18n="tic_h">Prodaja još nije otvorena</h2>
+    <p data-i18n="tic_p"></p>
+    <label for="t-email" data-i18n="tic_email">Tvoj email</label>
+    <input type="email" id="t-email" placeholder="ime@primjer.hr">
+    <div class="btnrow"><a class="btn" id="t-btn" href="#" data-i18n="tic_btn">Javi mi kad krene</a></div>
+  </section>
+
+  <section id="apply">
+    <p class="kicker" data-i18n="app_kick">Za ekipu iz kuće</p>
+    <h2 data-i18n="app_h">Prijavi se za slot</h2>
+    <p data-i18n="app_p"></p>
+
+    <label for="f-name" data-i18n="f_name">Ime i prezime</label>
+    <input type="text" id="f-name">
+    <label for="f-dept" data-i18n="f_dept">Odjel</label>
+    <input type="text" id="f-dept">
+    <label for="f-pseu" data-i18n="f_pseu">DJ pseudonim</label>
+    <input type="text" id="f-pseu">
+    <label for="f-genre" data-i18n="f_genre">Žanr</label>
+    <input type="text" id="f-genre">
+    <label for="f-slot" data-i18n="f_slot">Željeni termin</label>
+    <select id="f-slot"></select>
+    <label for="f-note" data-i18n="f_note">Napomena</label>
+    <textarea id="f-note"></textarea>
+
+    <div class="btnrow">
+      <button class="btn" id="f-copy" data-i18n="f_copy">Kopiraj prijavu</button>
+      <a class="btn ghost" id="f-mail" href="#" data-i18n="f_mail">Pošalji mailom</a>
+    </div>
+  </section>
+
+  <div class="foot">
+    <div data-i18n="foot_1"></div>
+    <div data-i18n="foot_2"></div>
+    <div data-i18n="foot_3"></div>
+  </div>
+
+</div>
+
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+<script>
+/* application form: compose once, offer copy and mail. No server, nothing stored. */
+function composeApplication() {
+  const g = id => (document.getElementById(id).value || "").trim();
+  const slot = g("f-slot") || t("f_any");
+  return [
+    "NOVA TV 777 — " + t("app_h"),
+    "",
+    t("f_name")  + ": " + g("f-name"),
+    t("f_dept")  + ": " + g("f-dept"),
+    t("f_pseu")  + ": " + g("f-pseu"),
+    t("f_genre") + ": " + g("f-genre"),
+    t("f_slot")  + ": " + slot,
+    t("f_note")  + ": " + g("f-note")
+  ].join("\n");
+}
+
+document.getElementById("f-copy").addEventListener("click", async e => {
+  e.preventDefault();
+  const btn = e.currentTarget, txt = composeApplication();
+  try {
+    await navigator.clipboard.writeText(txt);
+  } catch (err) {
+    const ta = document.createElement("textarea");
+    ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch (e2) {}
+    document.body.removeChild(ta);
+  }
+  const was = btn.textContent;
+  btn.textContent = t("f_copied");
+  setTimeout(() => { btn.textContent = was; }, 1600);
+});
+
+document.getElementById("f-mail").addEventListener("click", e => {
+  const to = (DATA && DATA.event && DATA.event.contact_email) || "";
+  e.currentTarget.href = "mailto:" + to +
+    "?subject=" + encodeURIComponent("NOVA TV 777 — prijava za DJ slot") +
+    "&body=" + encodeURIComponent(composeApplication());
+});
+
+document.getElementById("t-btn").addEventListener("click", e => {
+  const to = (DATA && DATA.event && DATA.event.contact_email) || "";
+  const mine = (document.getElementById("t-email").value || "").trim();
+  e.currentTarget.href = "mailto:" + to +
+    "?subject=" + encodeURIComponent("NOVA TV 777 — javi mi za ulaznice") +
+    "&body=" + encodeURIComponent(mine);
+});
+</script>
+</body>
+</html>

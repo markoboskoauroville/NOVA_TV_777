@@ -1,0 +1,83 @@
+{
+  "_readme": "Single source of truth for both pages. Edit this file and both index.html and hub.html change. Keep it valid JSON: every string in double quotes, no trailing commas. If in doubt, paste it into jsonlint.com before saving.",
+
+  "event": {
+    "name": "Nova TV 777",
+    "anniversary": 27,
+    "launch": "2000-05-28",
+    "start": "2027-05-28T19:00:00+02:00",
+    "end": "2027-05-29T07:00:00+02:00",
+    "venue": "Dvorana Amber",
+    "city": "Zagreb",
+    "repo": "markoboskoauroville/NOVA_TV_777",
+    "contact_email": "marko.bosko@example.hr"
+  },
+
+  "producers": [
+    { "name": "Mislav", "role_hr": "glavni producent", "role_en": "executive producer", "github": "" },
+    { "name": "Miro",   "role_hr": "asistent produkcije", "role_en": "production assistant", "github": "" },
+    { "name": "Baba",   "role_hr": "koncept i stranica", "role_en": "concept and site", "github": "markoboskoauroville" }
+  ],
+
+  "slots": [
+    { "hour": "19:00", "pseudonym": "", "genre_hr": "", "genre_en": "", "status": "open" },
+    { "hour": "20:00", "pseudonym": "", "genre_hr": "", "genre_en": "", "status": "open" },
+    { "hour": "21:00", "pseudonym": "", "genre_hr": "", "genre_en": "", "status": "open" },
+    { "hour": "22:00", "pseudonym": "", "genre_hr": "", "genre_en": "", "status": "open" },
+    { "hour": "23:00", "pseudonym": "DJ Manijak", "genre_hr": "house i dance devedesetih", "genre_en": "90s house and dance", "status": "held" },
+    { "hour": "00:00", "pseudonym": "", "genre_hr": "", "genre_en": "", "status": "open" },
+    { "hour": "01:00", "pseudonym": "", "genre_hr": "", "genre_en": "", "status": "open" },
+    { "hour": "02:00", "pseudonym": "", "genre_hr": "", "genre_en": "", "status": "open" },
+    { "hour": "03:00", "pseudonym": "", "genre_hr": "", "genre_en": "", "status": "open" },
+    { "hour": "04:00", "pseudonym": "", "genre_hr": "", "genre_en": "", "status": "open" },
+    { "hour": "05:00", "pseudonym": "", "genre_hr": "", "genre_en": "", "status": "open" },
+    { "hour": "06:00", "pseudonym": "", "genre_hr": "", "genre_en": "", "status": "open" }
+  ],
+
+  "applications": [
+    { "name": "Baba", "dept": "Montaža", "pseudonym": "DJ Manijak", "genre_hr": "house i dance devedesetih", "genre_en": "90s house and dance", "slot": "23:00", "status": "confirmed" }
+  ],
+
+  "timeline": [
+    { "date": "2026-09-07", "day_hr": "ponedjeljak", "day_en": "Monday",
+      "title_hr": "Prijedlog Mislavu", "title_en": "Pitch to Mislav",
+      "owner": "Baba", "status": "active" },
+    { "date": "2026-10-05", "day_hr": "ponedjeljak", "day_en": "Monday",
+      "title_hr": "Zeleno svjetlo uprave i rezervacija dvorane", "title_en": "Management green light and hall booking",
+      "owner": "Mislav", "status": "waiting" },
+    { "date": "2026-11-02", "day_hr": "ponedjeljak", "day_en": "Monday",
+      "title_hr": "Okvirni budžet i model honorara", "title_en": "Outline budget and fee model",
+      "owner": "Mislav", "status": "waiting" },
+    { "date": "2026-11-16", "day_hr": "ponedjeljak", "day_en": "Monday",
+      "title_hr": "Interni poziv cijeloj kući", "title_en": "Internal call to the whole building",
+      "owner": "Miro", "status": "waiting" },
+    { "date": "2027-01-18", "day_hr": "ponedjeljak", "day_en": "Monday",
+      "title_hr": "Prijave zatvorene, lineup zaključan", "title_en": "Applications closed, lineup locked",
+      "owner": "Miro", "status": "waiting" },
+    { "date": "2027-02-15", "day_hr": "ponedjeljak", "day_en": "Monday",
+      "title_hr": "Domena, stranica i prodaja ulaznica uživo", "title_en": "Domain, site and ticket sales live",
+      "owner": "Baba", "status": "waiting" },
+    { "date": "2027-03-15", "day_hr": "ponedjeljak", "day_en": "Monday",
+      "title_hr": "Marketing kampanja, objava pseudonima", "title_en": "Marketing campaign, pseudonyms announced",
+      "owner": "Mislav", "status": "waiting" },
+    { "date": "2027-04-19", "day_hr": "ponedjeljak", "day_en": "Monday",
+      "title_hr": "Tehnika, rider, rasvjeta u sedam boja", "title_en": "Sound, rider, seven-colour lighting",
+      "owner": "Miro", "status": "waiting" },
+    { "date": "2027-05-24", "day_hr": "ponedjeljak", "day_en": "Monday",
+      "title_hr": "Generalna proba i tonska", "title_en": "Full rehearsal and sound check",
+      "owner": "Miro", "status": "waiting" },
+    { "date": "2027-05-28", "day_hr": "petak", "day_en": "Friday",
+      "title_hr": "Party, 19:00 do 07:00", "title_en": "The party, 19:00 to 07:00",
+      "owner": "svi", "status": "waiting" }
+  ],
+
+  "budget": [
+    { "item_hr": "Najam dvorane Amber", "item_en": "Amber hall hire", "amount": "", "owner": "Mislav" },
+    { "item_hr": "Ozvučenje i rasvjeta", "item_en": "Sound and lighting", "amount": "", "owner": "Miro" },
+    { "item_hr": "Honorari DJ-eva (12 × 1 h)", "item_en": "DJ fees (12 × 1 h)", "amount": "", "owner": "Mislav" },
+    { "item_hr": "Zaštita i redari", "item_en": "Security and stewards", "amount": "", "owner": "Miro" },
+    { "item_hr": "Šank i osoblje", "item_en": "Bar and staff", "amount": "", "owner": "Mislav" },
+    { "item_hr": "Marketing i tisak", "item_en": "Marketing and print", "amount": "", "owner": "Baba" },
+    { "item_hr": "Domena i ticketing provizija", "item_en": "Domain and ticketing fees", "amount": "", "owner": "Baba" }
+  ]
+}
