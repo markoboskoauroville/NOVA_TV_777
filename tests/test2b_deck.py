@@ -38,21 +38,21 @@ with sync_playwright() as p:
     pg.wait_for_timeout(150)
     ck("leader was up on first visit", "gone" not in (pg.get_attribute("#leader","class") or ""),
        pg.get_attribute("#leader","class"))
-    pg.wait_for_timeout(2100)
+    pg.wait_for_timeout(4300)          # 7 numbers x 600ms, plus slack
     seen = set(pg.evaluate("window.__seen") or [])
     ck("counts through all seven numbers", {"1","2","3","4","5","6","7"} <= seen, sorted(seen))
-    pg.wait_for_timeout(500)
+    pg.wait_for_timeout(900)
     ck("reaches the bar stage", "barring" in (pg.get_attribute("#leader","class") or "")
        or "collapsing" in (pg.get_attribute("#leader","class") or ""),
        pg.get_attribute("#leader","class"))
-    pg.wait_for_timeout(2200)
+    pg.wait_for_timeout(4200)
     ck("leader finishes and gets out of the way", "gone" in (pg.get_attribute("#leader","class") or ""),
        pg.get_attribute("#leader","class"))
     ck("no page errors during leader", not errs, errs[:2])
     ck("page is usable underneath", pg.locator("#slots .clip").count()==12)
 
     print("LEADER — once per session")
-    pg.reload(); pg.wait_for_timeout(400)
+    pg.reload(); pg.wait_for_timeout(700)
     ck("does not replay on reload", "gone" in (pg.get_attribute("#leader","class") or ""))
     pg.close()
 
@@ -68,6 +68,13 @@ with sync_playwright() as p:
     pg = ctx3.new_page(); pg.goto(BASE + "/index.html"); pg.wait_for_timeout(350)
     ck("skipped entirely for reduced motion", "gone" in (pg.get_attribute("#leader","class") or ""),
        pg.get_attribute("#leader","class"))
+
+    print("IDENT")
+    ck("three RGB rings drawn", pg.locator(".ident-rings circle").count()==3)
+    ck("wordmark layer present", pg.locator(".ident-mark").count()==1)
+    ck("skip/replay control present", pg.locator("#ident-skip").count()==1)
+    ck("ident rests aligned before play",
+       (pg.eval_on_selector("#ident","e=>getComputedStyle(e).getPropertyValue('--sx').trim()") or "0px") == "0px")
 
     print("DECK")
     ck("waveform drew 120 real bars", pg.locator("#wave span").count()==120,

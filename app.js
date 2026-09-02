@@ -25,6 +25,7 @@ function runLeader() {
   const finish = () => {
     L.classList.add("gone");
     try { sessionStorage.setItem("nova777_leader", "1"); } catch (e) {}
+    syncIdentSkip();
   };
 
   if (reduced || seen) { finish(); return; }
@@ -36,7 +37,9 @@ function runLeader() {
     if (e.key === "Escape") { skip(); document.removeEventListener("keydown", esc); }
   });
 
-  const STEP = 300;
+  // 600ms per number: Baba asked for the count to run twice as long, so the
+  // seven colours register as seven rather than flashing past.
+  const STEP = 600;
   for (let i = 1; i <= 7; i++) {
     timers.push(setTimeout(() => {
       numEl.textContent = i;
@@ -50,9 +53,22 @@ function runLeader() {
   timers.push(setTimeout(() => {
     bars.forEach(b => { b.style.transitionDelay = "0ms"; });
     L.classList.add("collapsing");
-  }, 7 * STEP + 620));
-  timers.push(setTimeout(() => L.classList.add("fading"), 7 * STEP + 1260));
-  timers.push(setTimeout(finish, 7 * STEP + 1580));
+  }, 7 * STEP + 1240));
+  timers.push(setTimeout(() => L.classList.add("fading"), 7 * STEP + 2520));
+  timers.push(setTimeout(finish, 7 * STEP + 3160));
+}
+
+function leaderRunning() {
+  const L = document.getElementById("leader");
+  return !!L && !L.classList.contains("gone");
+}
+
+// Design language §5: the control says what pressing it will DO. While the
+// leader is up it skips; once it has finished the same key replays it.
+function syncIdentSkip() {
+  const b = document.getElementById("ident-skip");
+  if (!b) return;
+  b.textContent = leaderRunning() ? t("ident_skip") : t("ident_replay");
 }
 
 function replayLeader() {
@@ -62,6 +78,7 @@ function replayLeader() {
   L.className = "leader";
   L.querySelectorAll(".leader-bars .lb").forEach(b => { b.style.transitionDelay = "0ms"; });
   runLeader();
+  syncIdentSkip();
 }
 
 /* ══ 2. TIMECODE ═══════════════════════════════════════ */
@@ -107,11 +124,13 @@ function daysLeft() {
 /* ══ 4. THE ANTHEM: transport, waveform, real VU ════════ */
 const AudioDeck = {
   el: null, ctx: null, anL: null, anR: null, bufL: null, bufR: null,
-  bars: [], wired: false, raf: 0,
+  anM: null, freq: null, ident: null,
+  bars: [], wired: false, raf: 0, split: 0, glow: 0,
 
   init() {
     this.el = document.getElementById("anthem");
     if (!this.el) return;
+    this.ident = document.getElementById("ident");
     this.buildWave();
     this.buildMeters();
     // the deck owns its own waveform. An earlier version left this to an inline
@@ -185,6 +204,11 @@ const AudioDeck = {
       src.connect(this.ctx.destination);
       this.bufL = new Float32Array(this.anL.fftSize);
       this.bufR = new Float32Array(this.anR.fftSize);
+      // a third analyser on the summed signal, for the ident's bass reading
+      this.anM = this.ctx.createAnalyser();
+      this.anM.fftSize = 512; this.anM.smoothingTimeConstant = 0.75;
+      src.connect(this.anM);
+      this.freq = new Uint8Array(this.anM.frequencyBinCount);
       this.wired = true;
     } catch (e) { console.warn("meters unavailable:", e); }
   },
@@ -233,7 +257,8 @@ const AudioDeck = {
     document.querySelectorAll(".tally").forEach(x => x.classList.toggle("on", on));
     const st = document.getElementById("tp-state");
     if (st) st.textContent = on ? t("tp_playing") : t("tp_paused");
-    if (on) this.loop(); else { cancelAnimationFrame(this.raf); this.drawMeters(0, 0); }
+    if (on) { this.loop(); }
+    else { cancelAnimationFrame(this.raf); this.drawMeters(0, 0); this.restIdent(); }
   },
 
   paint() {
@@ -270,10 +295,46 @@ const AudioDeck = {
     });
   },
 
+  // The ident rests aligned (reads white) whenever nothing is playing, so the
+  // light show is itself the signal that the anthem is running.
+  restIdent() {
+    if (!this.ident) return;
+    this.split = 0; this.glow = 0;
+    this.ident.style.setProperty("--sx", "0px");
+    this.ident.style.setProperty("--glow", "0");
+    this.ident.style.setProperty("--pulse", "1");
+  },
+
+  driveIdent() {
+    if (!this.ident || !this.anM) return;
+    this.anM.getByteFrequencyData(this.freq);
+    const n = this.freq.length;
+    let bass = 0, hi = 0;
+    const bEnd = Math.max(4, Math.floor(n * 0.08));       // ~low end
+    for (let i = 0; i < bEnd; i++) bass += this.freq[i];
+    bass /= bEnd * 255;
+    for (let i = Math.floor(n * 0.45); i < n; i++) hi += this.freq[i];
+    hi /= (n - Math.floor(n * 0.45)) * 255;
+
+    // Attack fast, release slow — a light desk, not a jitter.
+    // The rings are SVG children, so a CSS translate here is in USER units
+    // (viewBox 1024), not screen px: at ~340px wide, 1 unit is a third of a
+    // pixel. Hence the large multiplier, capped so the rings stay in the frame.
+    const tSplit = Math.min(148, Math.pow(Math.max(0, bass - 0.14), 1.1) * 235);
+    this.split += (tSplit - this.split) * (tSplit > this.split ? 0.55 : 0.10);
+    const tGlow = Math.min(1, hi * 2.1);
+    this.glow += (tGlow - this.glow) * (tGlow > this.glow ? 0.5 : 0.08);
+
+    this.ident.style.setProperty("--sx", this.split.toFixed(1) + "px");
+    this.ident.style.setProperty("--glow", this.glow.toFixed(3));
+    this.ident.style.setProperty("--pulse", (1 + Math.min(0.06, bass * 0.09)).toFixed(4));
+  },
+
   loop() {
     this.raf = requestAnimationFrame(() => this.loop());
     if (!this.wired || this.el.paused) return;
     this.drawMeters(this.rms(this.anL, this.bufL), this.rms(this.anR, this.bufR));
+    this.driveIdent();
   }
 };
 
@@ -403,6 +464,7 @@ function renderAll() {
   renderPlan(); renderApplications(); renderBudget(); tickCountdown();
   const st = document.getElementById("tp-state");
   if (st && AudioDeck.el) st.textContent = AudioDeck.el.paused ? t("tp_paused") : t("tp_playing");
+  syncIdentSkip();
 }
 
 /* ══ 8. BOOT ═══════════════════════════════════════════ */
@@ -416,4 +478,13 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(tickCountdown, 1000);
   const lg = document.getElementById("mb-logo");
   if (lg) lg.addEventListener("click", replayLeader);
+  const sk = document.getElementById("ident-skip");
+  if (sk) sk.addEventListener("click", () => {
+    if (leaderRunning()) {
+      const s = document.querySelector(".leader-skip");
+      if (s) s.click();
+      syncIdentSkip();
+    } else { replayLeader(); }
+  });
+  syncIdentSkip();
 });

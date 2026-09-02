@@ -27,7 +27,7 @@ runtime={f"st_{s}" for s in ("confirmed","held","open")} | \
         {f"ts_{s}" for s in ("done","active","waiting","blocked")} | \
         {f"as_{s}" for s in ("new","contacted","confirmed","scheduled","declined")} | \
         {"s_apps","s_conf","s_free","s_days","cd_foot","cd_live","cd_over","slot_open",
-         "f_any","f_copied","hub_wrong","tp_playing","tp_paused","app_h","f_name","f_dept","f_pseu","f_genre","f_slot","f_note"}
+         "f_any","f_copied","hub_wrong","tp_playing","tp_paused","ident_replay","ident_skip","app_h","f_name","f_dept","f_pseu","f_genre","f_slot","f_note"}
 used |= runtime
 ck("no key referenced but undefined", not (used-keys), sorted(used-keys))
 ck("no key defined but unused", not (keys-used), sorted(keys-used))

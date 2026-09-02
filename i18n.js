@@ -11,6 +11,11 @@ const DICT = {
   nav_back:      { hr: "Natrag na party",  en: "Back to party" },
 
 
+  ident_cap:    { hr: "27 godina · 7 katova · od 7 do 7",
+                  en: "27 years · 7 floors · seven to seven" },
+  ident_skip:   { hr: "Preskoči uvod", en: "Skip intro" },
+  ident_replay: { hr: "Ponovi uvod",   en: "Replay intro" },
+
   /* ── monitors, transport, meters ────────────────────── */
   src_head:   { hr: "Source · Himna ekipe",   en: "Source · Crew anthem" },
   rec_head:   { hr: "Record · Odbrojavanje",  en: "Record · Countdown" },

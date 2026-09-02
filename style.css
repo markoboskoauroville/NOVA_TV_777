@@ -98,6 +98,79 @@ body {
 .spine i:nth-child(5){background:var(--b5)} .spine i:nth-child(6){background:var(--b6)}
 .spine i:nth-child(7){background:var(--b7)}
 
+
+/* ══ IDENT: the logo as an RGB light show ══════════════
+   Three copies of Baba's own mark, tinted red / green / blue and screened
+   together. Aligned they read white — which is what additive colour does, and
+   it is the same physics as the seven SMPTE bars. Split apart they give the
+   overlapping rings of the artwork: red+green = yellow, green+blue = cyan.
+   The split and glow are driven by the anthem's real bass energy, so the logo
+   is still while the track is paused and dances only while it plays. */
+.ident {
+  position: relative; width: 100%; padding: 20px 0 16px;
+  display: flex; align-items: center; justify-content: center;
+  background: #000; border-bottom: 1px solid var(--mc-edge);
+  overflow: hidden;
+  --sx: 0px;      /* channel separation, px            */
+  --glow: 0;      /* 0..1 bloom                        */
+  --pulse: 1;     /* scale                             */
+}
+.ident-stack {
+  position: relative; width: min(78vw, 340px); aspect-ratio: 1 / 1;
+  transform: scale(var(--pulse));
+  transition: transform .06s linear;
+}
+/* The rings are drawn, not cut from the bitmap: masking the artwork split the
+   numerals into three illegible copies. Rings separate; the wordmark never does. */
+.ident-rings { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.ident-rings circle { mix-blend-mode: screen; will-change: transform; }
+.ir-r { transform: translate(calc(var(--sx) * -1), calc(var(--sx) * -0.30)); transform-origin: center; }
+.ir-g { transform: translate(0, calc(var(--sx) * 0.46));                      transform-origin: center; }
+.ir-b { transform: translate(var(--sx), calc(var(--sx) * -0.30));             transform-origin: center; }
+
+/* Baba's mark, locked and legible on top whatever the rings are doing. */
+.ident-mark {
+  position: absolute; inset: 0; background: #fff;
+  -webkit-mask-image: url("assets/logo-mask.png"); mask-image: url("assets/logo-mask.png");
+  -webkit-mask-size: contain;  mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center; mask-position: center;
+}
+
+.ident-bloom {
+  position: absolute; inset: 0; pointer-events: none;
+  -webkit-mask-image: url("assets/logo-mask.png"); mask-image: url("assets/logo-mask.png");
+  -webkit-mask-size: contain;  mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center; mask-position: center;
+  background: #fff; mix-blend-mode: screen;
+  opacity: calc(var(--glow) * 0.55);
+}
+/* Caption and skip share one row with two ends and a middle, so neither can
+   collide with the other at 390px. */
+.ident-foot {
+  position: absolute; left: 0; right: 0; bottom: 5px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; padding: 0 12px;
+}
+.ident-cap {
+  font-family: "IBM Plex Mono", monospace; font-size: 9px; letter-spacing: .22em;
+  color: var(--ink-faint); text-transform: uppercase; pointer-events: none;
+  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ident-skip {
+  flex: 0 0 auto; background: transparent; border: 1px solid var(--mc-edge);
+  border-radius: 2px; color: var(--ink-dim); cursor: pointer;
+  font-family: "IBM Plex Mono", monospace; font-size: 9px; letter-spacing: .16em;
+  text-transform: uppercase; padding: 5px 9px; white-space: nowrap;
+}
+.ident-skip:hover { color: var(--amber); border-color: var(--amber); }
+@media (prefers-reduced-motion: reduce) {
+  .ident-stack { transform: none; }
+  .ident-rings circle { transform: none; }
+  .ident-bloom { opacity: 0; }
+}
+
 /* ══ MENU BAR ══════════════════════════════════════════ */
 .menubar { background: linear-gradient(180deg, var(--mc-raise), var(--mc-panel));
            border-bottom: 1px solid var(--mc-edge); }
