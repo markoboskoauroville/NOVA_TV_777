@@ -9,7 +9,7 @@ relative, so it works at a domain root and inside a subdirectory without edits.
    **Connect to Git** → pick `markoboskoauroville/NOVA_TV_777`
 2. Settings:
 
-       Project name        <chosen name>          → becomes <name>.pages.dev
+       Project name        sedamsedamsedam        → sedamsedamsedam.pages.dev
        Production branch   main
        Framework preset    None
        Build command       (leave empty)
@@ -43,12 +43,16 @@ network, which would be an awkward way to lose a pitch.
 
 `777` is fine as the **event** name. It is a poor **web handle**.
 
-Free at time of writing: `sedamdosedam`, `od7do7`, `novatv27`, `nova27`,
-`dvorana-amber`, `amber777`, `nova-777`.
+### The name, decided 2. 9. 2026
 
-Recommended: **`sedamdosedam`** — "seven to seven", says the concept, no
-collision, and it matches `sedamdosedam.hr` for later, so the temporary address
-and the real one agree.
+**`sedamsedamsedam`** — Baba's choice, and it solves the problem better than any
+of the alternatives did. It is 777 spelled as words, so it carries the whole
+concept while containing no digits at all, which is what puts it completely
+outside the `word777` gambling pattern. It is also speakable: "sedam sedam
+sedam" can be read aloud in a promo, where a numeral cannot.
+
+Checked free and valid on 2. 9. 2026: 15 characters, lowercase alphanumeric,
+well inside the 58-character project-name limit.
 
 ## A custom domain later
 

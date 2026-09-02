@@ -48,6 +48,20 @@ check `git status` before trusting the files.**
 - mailto: composes a correct URL; whether a mail client opens is the operating system's business.
 - No ticketing exists. The email field composes a message and nothing more.
 
+## The name
+
+**`sedamsedamsedam`** — 777 written as words. Chosen 2. 9. 2026 after
+`nova777.pages.dev` turned out to be an Indonesian online-slots site
+(canonical `nova777.org`), and the wider `word777` pattern — `inova777`,
+`mpo777`, `live777`, `kilat777`, `mc777` — turned out to be saturated with
+gambling brands. Two risks that mattered: searching the name returns casinos,
+and gambling-adjacent domains are commonly blocked by corporate DNS filters,
+possibly including Nova TV's own network. Prefixing a digit (`25nova777`) would
+have made it look *more* like a slot brand, not less. Spelling the sevens as
+words escapes the pattern entirely.
+
+`777` stays the event name. It is only a bad **web handle**.
+
 ## Branding
 
 `assets/logo.png` is Baba's own 27/777 adaptation of the Nova TV mark, supplied by him. It is a
