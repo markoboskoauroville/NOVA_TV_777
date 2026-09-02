@@ -126,7 +126,16 @@ const AudioDeck = {
   el: null, ctx: null, anL: null, anR: null, bufL: null, bufR: null,
   anM: null, freq: null, ident: null,
   bars: [], wired: false, raf: 0,
-  frame: 0, pulse: 1, fluxAvg: 0, prevLow: null, lastCut: 0,
+  frame: 0, fluxAvg: 0, prevLow: null, lastCut: 0,
+  // Speaker-cone model: a mass on a spring with damping, driven by impulses.
+  // x is displacement from rest, v is velocity. Not a smoothing filter — a
+  // filter only ever decays toward its input, so it cannot overshoot and
+  // settle, which is exactly what makes a cone read as physical.
+  x: 0, v: 0, lastT: 0,
+  K: 300,        // stiffness  -> omega = sqrt(K) = 17.3 rad/s = 2.8 Hz
+  C: 17,         // damping    -> zeta = C / (2*sqrt(K)) = 0.49, underdamped
+  HIT: 16,       // impulse gain: tuned from measured peak displacement, not guessed
+  MAX_X: 0.085,  // "not too much": at most 8.5% bigger than rest
   // 300ms floor: high-contrast full-colour frames must not exceed three
   // changes a second, whatever the track does.
   MIN_CUT_MS: 300,
@@ -304,7 +313,8 @@ const AudioDeck = {
   // Rests on frame 1 whenever nothing plays, so the cutting is itself the
   // signal that the anthem is running.
   restIdent() {
-    this.fluxAvg = 0; this.prevLow = null; this.lastCut = 0; this.pulse = 1;
+    this.fluxAvg = 0; this.prevLow = null; this.lastCut = 0;
+    this.x = 0; this.v = 0; this.lastT = 0;
     const f = document.getElementById("frames");
     if (!f) return;
     f.style.setProperty("--pulse", "1");
@@ -333,11 +343,6 @@ const AudioDeck = {
     for (let i = 0; i < bEnd; i++) bass += this.freq[i];
     bass /= bEnd * 255;
 
-    // scale tracks the bass continuously — the rhythm shows between cuts too
-    const target = 1 + Math.min(0.13, Math.max(0, bass - 0.12) * 0.5);
-    this.pulse += (target - this.pulse) * (target > this.pulse ? 0.6 : 0.12);
-    f.style.setProperty("--pulse", this.pulse.toFixed(4));
-
     // SPECTRAL FLUX, not absolute level. This track is heavily limited — its
     // bass sits near the ceiling almost continuously, so "louder than average"
     // fired twice in twelve seconds. Flux measures how much the low end just
@@ -358,7 +363,21 @@ const AudioDeck = {
     const since = now - this.lastCut;
     const onset = flux > this.fluxAvg * 1.6 && flux > 0.012;
 
-    // and a floor on stillness: a quiet passage should not freeze the picture
+    // ── drive the cone ────────────────────────────────
+    // Real elapsed time, clamped: a background tab hands back a huge dt and
+    // an unclamped spring integrates straight to infinity.
+    let dt = this.lastT ? (now - this.lastT) / 1000 : 0.016;
+    this.lastT = now;
+    dt = Math.min(0.05, Math.max(0.004, dt));
+
+    if (onset) this.v += Math.min(2.2, flux * this.HIT);   // kick the cone
+    this.v += (-this.K * this.x - this.C * this.v) * dt;   // spring + damping
+    this.x += this.v * dt;
+    if (this.x > this.MAX_X) { this.x = this.MAX_X; this.v = Math.min(this.v, 0); }
+    if (this.x < -this.MAX_X * 0.5) { this.x = -this.MAX_X * 0.5; this.v = Math.max(this.v, 0); }
+
+    f.style.setProperty("--pulse", (1 + this.x).toFixed(4));
+
     if ((onset || since > 1100) && since > this.MIN_CUT_MS) {
       this.lastCut = now;
       const imgs = f.querySelectorAll("img");

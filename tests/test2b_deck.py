@@ -139,6 +139,25 @@ with sync_playwright() as p:
       document.querySelectorAll('body *').forEach(el=>{const r=el.getBoundingClientRect();
       if(r.width>0&&(r.right>W+1||r.left<-1))bad.push(el.tagName+'.'+el.className);});return bad.slice(0,5);}""")
     ck("deck fits 390px", not over, over)
+
+    print("SPEAKER CONE")
+    pg.evaluate("""() => { window.__p=[];
+      const s=()=>{ window.__p.push(parseFloat(getComputedStyle(
+        document.getElementById('frames')).getPropertyValue('--pulse'))||1);
+        requestAnimationFrame(s); }; requestAnimationFrame(s); }""")
+    pg.click("#tp-play"); pg.wait_for_timeout(9000)
+    pv = pg.evaluate("window.__p") or [1]
+    ck("cone actually moves", max(pv) > 1.02, f"peak {max(pv):.4f}")
+    ck("travel stays inside the 8.5% cap", max(pv) <= 1.0851, f"peak {max(pv):.4f}")
+    ck("it rebounds past rest, so it is a spring and not a decay filter",
+       min(pv) < 0.9995, f"min {min(pv):.4f}")
+    rev = sum(1 for i in range(2, len(pv)) if pv[i-1]-pv[i-2] > 0 and pv[i]-pv[i-1] < 0)
+    ck("overshoots and settles repeatedly", rev > 15, f"{rev} peaks")
+    pg.click("#tp-play"); pg.wait_for_timeout(1400)
+    ck("returns to rest when paused",
+       abs(pg.eval_on_selector("#frames","e=>parseFloat(getComputedStyle(e).getPropertyValue('--pulse'))||1") - 1) < 0.004)
+    pg.click("#tp-play"); pg.wait_for_timeout(600)
+
     b.close()
 
 print("\nFAILURES:", len(fails), fails)

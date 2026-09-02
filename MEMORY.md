@@ -114,6 +114,34 @@ high-contrast full-colour frames; three changes a second is the accepted ceiling
 before flashing becomes a photosensitivity risk. Music sits near 2/sec anyway, so
 the floor never fights the beat — it only catches a loud passage.
 
+### The pulse is a spring, not a filter
+
+Exponential smoothing (`x += (target - x) * k`) was the first attempt and it
+cannot feel physical, because a filter only ever decays *toward* its input — it
+can never overshoot, never cross rest, never settle. A cone does all three.
+
+The pulse is now a driven damped harmonic oscillator integrated per animation
+frame: `v += (-K*x - C*v) * dt; x += v * dt`, with an impulse added to `v` on
+each onset. K = 300 gives omega 17.3 rad/s (2.8 Hz), C = 17 gives zeta 0.49 —
+underdamped, so it overshoots once and settles, which is the "easy in, easy out".
+
+Two things that are not decoration:
+
+- **Clamp dt.** A backgrounded tab hands back a dt of several seconds and an
+  unclamped spring integrates straight to infinity. Clamped to 4–50 ms.
+- **No CSS transition on the transform.** A transition on top of a per-frame
+  integration adds a second, slower easing that smears the attack and cancels
+  the overshoot. The physics is the easing.
+
+Measured over 14 s of the anthem: travel 0.988–1.084, 98th percentile 1.057,
+rebounds below rest on 15% of frames, ~4 overshoot-and-settle events per second.
+
+**The gain was measured, not guessed.** At the first setting the cone moved 2.2%
+against a 5–6% target. An attempt to derive the right gain from median impulse
+size was contaminated — the probe counted spring dynamics as impulses too. The
+number that could be trusted was the observed peak displacement, so the gain was
+scaled by the ratio of observed to wanted, and re-measured.
+
 ### The CSS bug that a passing test hid
 
 `.mon-art img { opacity: .9 }` was written for the single cover image. It has the

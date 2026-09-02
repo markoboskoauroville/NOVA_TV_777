@@ -115,7 +115,9 @@ body {
   position: absolute; width: 62%; max-width: 260px; height: auto;
   opacity: 0; border-radius: 2px;
   transform: scale(var(--pulse));
-  transition: transform .07s linear;
+  /* No CSS transition. The spring integrates every animation frame, and a
+     transition on top of that adds a second, slower easing that smears the
+     attack and kills the overshoot. The physics IS the easing. */
 }
 .frames img.on { opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
