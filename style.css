@@ -107,7 +107,7 @@ body {
    music sits near 2 cuts a second, and the floor keeps a loud passage from
    pushing high-contrast full-colour frames past 3 flashes a second. */
 .frames {
-  position: absolute; inset: 0;
+  position: absolute; inset: 0; background: #000;
   display: flex; align-items: center; justify-content: center;
   --pulse: 1;
 }
@@ -162,7 +162,9 @@ body {
 .monitors { display: grid; grid-template-columns: 1fr; gap: var(--gap); }
 @media (min-width: 760px) { .monitors { grid-template-columns: 1fr 1fr; } }
 .monitor { display: flex; flex-direction: column; min-width: 0; }
-.mon-screen { background: var(--mc-well); aspect-ratio: 16 / 9; position: relative;
+/* Pure black, not --mc-well. The frame JPEGs are matted on #000, so a #08080A
+   surround puts a hard vertical seam down each side of the logo. */
+.mon-screen { background: #000; aspect-ratio: 16 / 9; position: relative;
   overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .mon-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px;
   padding: 5px 9px; background: var(--mc-deep); border-top: 1px solid var(--mc-edge); }
