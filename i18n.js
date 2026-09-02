@@ -25,7 +25,9 @@ const DICT = {
   vu_track:   { hr: "Traka",    en: "Track" },
   vu_artist:  { hr: "Izvođač",  en: "Artist" },
   vu_len:     { hr: "Trajanje", en: "Length" },
-  tic_tag:    { hr: "NIJE OTVORENO", en: "NOT OPEN" },
+  mock_tag:   { hr: "MAKETA", en: "MOCKUP" },
+  mock_note:  { hr: "Ovo je maketa, ne radi. Polja i gumbi su tu samo da se vidi kako će izgledati. Kad skripte budu gotove, prijava će ići ravno u tablicu. Do tada mi javi na WhatsApp i upisat ću te ručno.",
+                en: "This is a mockup and does not work. The fields and buttons are here only to show how it will look. Once the scripts are finished, an application will go straight into the spreadsheet. Until then, message me and I will add you by hand." },
   hub_tag:    { hr: "PRIVATNO", en: "PRIVATE" },
 
   /* ── hero ───────────────────────────────────────────── */
@@ -111,8 +113,6 @@ const DICT = {
   /* ── apply ──────────────────────────────────────────── */
   app_kick: { hr: "Za ekipu iz kuće", en: "For staff" },
   app_h:    { hr: "Prijavi se za slot", en: "Apply for a slot" },
-  app_p:    { hr: "Ispuni, pritisni kopiraj i pošalji Miri ili Mislavu. Stranica nema server i ništa ne sprema, pa prijava putuje onim putem kojim ti odabereš.",
-              en: "Fill it in, press copy, send it to Miro or Mislav. This page has no server and stores nothing, so the application travels by whatever route you choose." },
   f_name:   { hr: "Ime i prezime", en: "Name" },
   f_dept:   { hr: "Odjel", en: "Department" },
   f_pseu:   { hr: "DJ pseudonim", en: "DJ pseudonym" },

@@ -57,12 +57,19 @@ with sync_playwright() as p:
     ck("nothing off screen at 390px", not over, over)
 
     # the apply form, driven by pressing the button a person presses
-    pg.fill("#f-name","Test Testić"); pg.fill("#f-pseu","DJ Proba")
-    pg.click("#f-copy"); pg.wait_for_timeout(300)
-    ck("copy button confirms", pg.inner_text("#f-copy").lower() in ("kopirano","copied"), pg.inner_text("#f-copy"))
-    pg.click("#f-mail"); pg.wait_for_timeout(200)
-    href = pg.get_attribute("#f-mail","href")
-    ck("mailto composed with the typed name", href.startswith("mailto:") and "Testi" in href, href[:60])
+    ck("form fields are disabled", pg.eval_on_selector("#f-name","e=>e.disabled"))
+    ck("slot select is disabled", pg.eval_on_selector("#f-slot","e=>e.disabled"))
+    ck("copy button is disabled", pg.eval_on_selector("#f-copy","e=>e.disabled"))
+    ck("mail link carries no mailto", not (pg.get_attribute("#f-mail","href") or ""),
+       repr(pg.get_attribute("#f-mail","href")))
+    ck("form is marked as a mockup", pg.locator(".panel-tag.mock").count() >= 1)
+    ck("mockup notice is visible and readable",
+       len(pg.inner_text(".note").strip()) > 40 and
+       float(pg.eval_on_selector(".note","e=>getComputedStyle(e).opacity")) > 0.9)
+    ck("fields are dimmed but still on screen",
+       0.3 < float(pg.eval_on_selector("#apply-mock","e=>getComputedStyle(e).opacity")) < 0.8,
+       pg.eval_on_selector("#apply-mock","e=>getComputedStyle(e).opacity"))
+    ck("pressing copy does nothing", pg.inner_text("#f-copy").lower() in ("kopiraj prijavu","copy application"))
 
     print("HUB")
     errs.clear()

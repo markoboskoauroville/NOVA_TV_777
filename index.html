@@ -293,14 +293,16 @@
   <div class="panel" id="tickets">
     <div class="panel-head">
       <span class="panel-name" data-i18n="tic_kick">Ulaznice</span>
-      <span class="panel-tag" data-i18n="tic_tag">NIJE OTVORENO</span>
+      <span class="panel-tag mock" data-i18n="mock_tag">MAKETA</span>
     </div>
     <div class="panel-body">
       <h2 data-i18n="tic_h">Prodaja još nije otvorena</h2>
       <p data-i18n="tic_p"></p>
       <label for="t-email" data-i18n="tic_email">Tvoj email</label>
-      <input type="email" id="t-email" placeholder="ime@primjer.hr">
-      <div class="btnrow"><a class="btn" id="t-btn" href="#" data-i18n="tic_btn">Javi mi kad krene</a></div>
+      <div class="mockup">
+        <input type="email" id="t-email" placeholder="ime@primjer.hr" disabled>
+        <div class="btnrow"><a class="btn" id="t-btn" data-i18n="tic_btn">Javi mi kad krene</a></div>
+      </div>
     </div>
   </div>
 
@@ -308,20 +310,22 @@
   <div class="panel" id="apply">
     <div class="panel-head">
       <span class="panel-name" data-i18n="app_kick">Za ekipu iz kuće</span>
-      <span class="panel-tag">FORM 01</span>
+      <span class="panel-tag mock" data-i18n="mock_tag">MAKETA</span>
     </div>
     <div class="panel-body">
       <h2 data-i18n="app_h">Prijavi se za slot</h2>
-      <p data-i18n="app_p"></p>
-      <label for="f-name" data-i18n="f_name">Ime i prezime</label><input type="text" id="f-name">
-      <label for="f-dept" data-i18n="f_dept">Odjel</label><input type="text" id="f-dept">
-      <label for="f-pseu" data-i18n="f_pseu">DJ pseudonim</label><input type="text" id="f-pseu">
-      <label for="f-genre" data-i18n="f_genre">Žanr</label><input type="text" id="f-genre">
-      <label for="f-slot" data-i18n="f_slot">Željeni termin</label><select id="f-slot"></select>
-      <label for="f-note" data-i18n="f_note">Napomena</label><textarea id="f-note"></textarea>
+      <div class="note" data-i18n="mock_note"></div>
+      <div class="mockup" id="apply-mock" aria-hidden="true">
+      <label for="f-name" data-i18n="f_name">Ime i prezime</label><input type="text" id="f-name" disabled>
+      <label for="f-dept" data-i18n="f_dept">Odjel</label><input type="text" id="f-dept" disabled>
+      <label for="f-pseu" data-i18n="f_pseu">DJ pseudonim</label><input type="text" id="f-pseu" disabled>
+      <label for="f-genre" data-i18n="f_genre">Žanr</label><input type="text" id="f-genre" disabled>
+      <label for="f-slot" data-i18n="f_slot">Željeni termin</label><select id="f-slot" disabled></select>
+      <label for="f-note" data-i18n="f_note">Napomena</label><textarea id="f-note" disabled></textarea>
       <div class="btnrow">
-        <button class="btn" id="f-copy" type="button" data-i18n="f_copy">Kopiraj prijavu</button>
-        <a class="btn ghost" id="f-mail" href="#" data-i18n="f_mail">Pošalji mailom</a>
+        <button class="btn" id="f-copy" type="button" disabled data-i18n="f_copy">Kopiraj prijavu</button>
+        <a class="btn ghost" id="f-mail" data-i18n="f_mail">Pošalji mailom</a>
+      </div>
       </div>
     </div>
   </div>
@@ -343,7 +347,11 @@ function composeApplication() {
     t("f_pseu")+": "+g("f-pseu"), t("f_genre")+": "+g("f-genre"),
     t("f_slot")+": "+(g("f-slot")||t("f_any")), t("f_note")+": "+g("f-note")].join("\n");
 }
+// The form is a mockup. The handlers stay in the file so re-enabling it later
+// is one line of HTML, but they refuse to run while the fields are disabled.
+const MOCKUP = true;
 document.getElementById("f-copy").addEventListener("click", async e => {
+  if (MOCKUP) { e.preventDefault(); return; }
   const btn = e.currentTarget, txt = composeApplication();
   try { await navigator.clipboard.writeText(txt); }
   catch (err) {
@@ -357,11 +365,13 @@ document.getElementById("f-copy").addEventListener("click", async e => {
   setTimeout(() => { btn.textContent = was; }, 1600);
 });
 document.getElementById("f-mail").addEventListener("click", e => {
+  if (MOCKUP) { e.preventDefault(); return; }
   const to = (DATA && DATA.event && DATA.event.contact_email) || "";
   e.currentTarget.href = "mailto:"+to+"?subject="+encodeURIComponent("NOVA TV 777 — prijava za DJ slot")+
     "&body="+encodeURIComponent(composeApplication());
 });
 document.getElementById("t-btn").addEventListener("click", e => {
+  if (MOCKUP) { e.preventDefault(); return; }
   const to = (DATA && DATA.event && DATA.event.contact_email) || "";
   e.currentTarget.href = "mailto:"+to+"?subject="+encodeURIComponent("NOVA TV 777 — javi mi za ulaznice")+
     "&body="+encodeURIComponent((document.getElementById("t-email").value||"").trim());

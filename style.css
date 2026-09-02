@@ -371,6 +371,13 @@ input:focus, select:focus, textarea:focus { outline: 1px solid var(--amber); bor
 .btn:hover { opacity: .86; }
 .btn.inactive { opacity: .34; pointer-events: none; }
 
+/* A mockup stays fully rendered and readable — the design language forbids
+   things vanishing — but it cannot be typed in or pressed. Dimmed enough to
+   read as inert, not so dim it cannot be read. */
+.mockup { opacity: .5; pointer-events: none; user-select: none; }
+.panel-tag.mock { color: #14100A; background: var(--amber); padding: 2px 7px;
+  border-radius: 2px; letter-spacing: .14em; }
+
 .gate { display: grid; gap: 8px; }
 @media (min-width: 520px) { .gate { grid-template-columns: 1fr auto; align-items: end; } }
 .gate label { margin-top: 0; }
