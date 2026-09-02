@@ -1,5 +1,7 @@
 # TEST 2 — the real thing, in a real browser, driven the way a person drives it.
 from playwright.sync_api import sync_playwright
+import os
+BASE = os.environ.get("B777", "http://localhost:8777")
 import re, sys
 fails=[]
 def ck(name, cond, got=""):
@@ -12,7 +14,7 @@ with sync_playwright() as p:
     pg = b.new_page(viewport={"width":390,"height":844})
     errs=[]; pg.on("pageerror", lambda e: errs.append(str(e)))
     pg.on("console", lambda m: errs.append(m.text) if m.type=="error" else None)
-    pg.goto("http://localhost:8777/index.html"); pg.wait_for_timeout(1400)
+    pg.goto(BASE + "/index.html"); pg.wait_for_timeout(1400)
 
     print("INDEX")
     ck("no console/page errors", not errs, errs[:3])
@@ -64,7 +66,7 @@ with sync_playwright() as p:
 
     print("HUB")
     errs.clear()
-    pg.goto("http://localhost:8777/hub.html"); pg.wait_for_timeout(1200)
+    pg.goto(BASE + "/hub.html"); pg.wait_for_timeout(1200)
     ck("no console/page errors", not errs, errs[:3])
     ck("vault starts locked", "locked" in (pg.get_attribute("#vault","class") or ""))
     pg.fill("#gate-in","krivo"); pg.click("#gate-btn"); pg.wait_for_timeout(250)

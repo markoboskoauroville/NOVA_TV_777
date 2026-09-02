@@ -40,6 +40,27 @@ and tests were restored with `git checkout HEAD --` and the changes reapplied wi
 every anchor. Cause not established. **If a future session finds unexplained working-tree edits,
 check `git status` before trusting the files.**
 
+## Live on Cloudflare Workers, 2. 9. 2026
+
+`https://sedamsedamsedam.marko-bosko-925.workers.dev`
+
+Pages creation is gone from the dashboard on this account — only Workers remains —
+so the site deploys as a **static-assets Worker**: `wrangler.jsonc` points at
+`./dist`, and `build.sh` assembles the 15 shipped files so tests, docs and git
+metadata cannot reach the public site. Verified live: 60 checks, 0 failures.
+
+**Workers Assets does not serve HTTP Range.** A request for 1000 bytes of the mp3
+returns all 6.8 MB with a 200 and no `accept-ranges`. Measured: 208 s buffered and
+`seekable.end` still 0, so the browser refuses to expose a seekable range even
+when the file is fully downloaded. Play, pause, meters and the waveform all work;
+the four skip buttons stay dimmed by `canSeek()`, which is the correct
+degradation. GitHub Pages *does* serve ranges (206 confirmed), so the same code
+has working transport there. Fixing it here would need a Worker script that
+implements Range over the assets binding.
+
+`/hub.html` 307-redirects to `/hub` — Workers Assets drops the extension by
+default. Harmless; links follow it.
+
 ## Not proven
 
 - Chromium only. Safari on iPhone is code inspection.
