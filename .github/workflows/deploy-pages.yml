@@ -1,0 +1,43 @@
+name: Deploy to Cloudflare Pages
+
+# A Pages project created from the CLI is a Direct Upload project, and Git
+# integration can only be attached at creation time in the dashboard — which no
+# longer offers Pages. So auto-deploy is restored here instead: every push to
+# main builds and uploads, which is the same outcome by a different road.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Fail soft rather than red. Until the two secrets exist this job should
+      # say so plainly and stop, not litter the repo with failed runs.
+      - name: Check credentials are present
+        id: creds
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CF_API_TOKEN" ] || [ -z "$CF_ACCOUNT_ID" ]; then
+            echo "::notice::CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID not set — skipping deploy."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build
+        if: steps.creds.outputs.ready == 'true'
+        run: bash build.sh
+
+      - name: Deploy
+        if: steps.creds.outputs.ready == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx --yes wrangler@4 pages deploy dist --project-name sedamsedamsedam --branch main
