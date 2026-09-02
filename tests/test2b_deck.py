@@ -14,11 +14,32 @@ with sync_playwright() as p:
     print("LEADER")
     ctx = b.new_context(viewport={"width":390,"height":844})
     pg = ctx.new_page(); errs=[]; pg.on("pageerror", lambda e: errs.append(str(e)))
+    # Record every value the counter takes, rather than sampling it. Polling raced
+    # the 300ms window on "1" and failed about one run in three — a test that fails
+    # at random teaches people to ignore it.
+    # An init script runs before the document exists, so documentElement is null
+    # and observe() throws. Attach on DOMContentLoaded instead, which still fires
+    # before the first counter change.
+    pg.add_init_script("""
+      window.__seen = [];
+      document.addEventListener('DOMContentLoaded', () => {
+        const rec = () => {
+          const n = document.querySelector('.leader-num');
+          if (!n) return;
+          const v = (n.textContent || '').trim();
+          if (v && window.__seen[window.__seen.length-1] !== v) window.__seen.push(v);
+        };
+        rec();
+        new MutationObserver(rec).observe(document.documentElement,
+          {subtree:true, childList:true, characterData:true});
+      });
+    """)
     pg.goto(BASE + "/index.html")
-    seen = set()
-    for _ in range(60):
-        seen.add(pg.inner_text(".leader-num").strip()); pg.wait_for_timeout(38)
-    ck("leader was up on first visit", "1" in seen or "2" in seen, sorted(seen)[:3])
+    pg.wait_for_timeout(150)
+    ck("leader was up on first visit", "gone" not in (pg.get_attribute("#leader","class") or ""),
+       pg.get_attribute("#leader","class"))
+    pg.wait_for_timeout(2100)
+    seen = set(pg.evaluate("window.__seen") or [])
     ck("counts through all seven numbers", {"1","2","3","4","5","6","7"} <= seen, sorted(seen))
     pg.wait_for_timeout(500)
     ck("reaches the bar stage", "barring" in (pg.get_attribute("#leader","class") or "")
