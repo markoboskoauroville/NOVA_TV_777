@@ -69,10 +69,11 @@ fails if either language is missing, or if a key is referenced but not defined.
     python3 -m http.server 8777
     python3 tests/test1_dict.py      # dictionary and data shape
     python3 tests/test2_browser.py   # real browser at 390px, buttons pressed
+    python3 tests/test2b_deck.py     # SMPTE leader, transport, real VU metering
     python3 tests/test3_ugly.py      # absent, malformed, empty, enormous, past, twice
     python3 tests/test4_upgrade.py   # returning visitor, old-shaped data
 
-Last run 29. 8. 2026: **8, 31, 22, 15 passed, 0 failed.**
+Last run 2. 9. 2026: **8, 32, 28, 22, 15 passed, 0 failed.**
 
 ## Not tested
 
@@ -81,6 +82,13 @@ Last run 29. 8. 2026: **8, 31, 22, 15 passed, 0 failed.**
   operating system's business and cannot be reached from here.
 - Clipboard copy is tested in Chromium, where permission is granted automatically.
 - Ticket sales do not exist. The email box composes a message and nothing more.
+
+## The anthem
+
+`assets/nova777-anthem.mp3` — DJ Maniac, "Nova TV — ekipa (remix)", 4:58. The waveform under the
+transport is 120 real peaks pulled from that file with ffmpeg, not decoration. Regenerate with
+`ffmpeg -i assets/nova777-anthem.mp3 -ac 1 -ar 8000 -f s16le -` piped through the peak script in
+MEMORY.md. The file sits on GitHub Pages, so it is world-readable by anyone with the URL.
 
 ## Branding
 

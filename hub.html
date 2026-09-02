@@ -5,67 +5,100 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nova TV 777 · Hub</title>
 <meta name="robots" content="noindex">
+<link rel="icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:wght@300;400;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="spine"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
-<div class="topbar">
-  <a class="brandmark" href="index.html">NOVA TV <b>777</b></a>
-  <div class="navlinks">
+<div class="menubar"><div class="menubar-in">
+  <div class="mb-left">
+    <img class="mb-logo" src="assets/logo.png" alt="Nova TV 27 777">
+    <span class="mb-title">NOVA_TV_777 · PRODUCTION HUB</span>
+  </div>
+  <div class="mb-right">
     <a href="index.html" data-i18n="nav_back">Natrag na party</a>
     <div class="langswitch">
       <button data-lang="hr" aria-pressed="true">HR</button>
       <button data-lang="en" aria-pressed="false">EN</button>
     </div>
   </div>
-</div>
+</div></div>
 
 <div class="wrap">
 
-  <div class="hero" style="padding:34px 0 8px;text-align:left">
-    <p class="eyebrow" data-i18n="hub_eyebrow">Radni prostor</p>
-    <h2 data-i18n="hub_h">Produkcijski hub</h2>
-    <p class="dek" data-i18n="hub_lead"></p>
-  </div>
-
-  <div class="gate">
-    <div>
-      <label for="gate-in" data-i18n="hub_gate_l">Lozinka</label>
-      <input type="password" id="gate-in" autocomplete="off">
+  <div class="panel">
+    <div class="panel-head">
+      <span class="panel-name" data-i18n="hub_eyebrow">Radni prostor · Miro i Mislav</span>
+      <span class="panel-tag" data-i18n="hub_tag">PRIVATNO</span>
     </div>
-    <button class="btn" id="gate-btn" data-i18n="hub_gate_b">Otključaj</button>
+    <div class="panel-body">
+      <h2 data-i18n="hub_h">Produkcijski hub</h2>
+      <p class="dek" data-i18n="hub_lead"></p>
+      <div class="gate">
+        <div>
+          <label for="gate-in" data-i18n="hub_gate_l">Lozinka</label>
+          <input type="password" id="gate-in" autocomplete="off">
+        </div>
+        <button class="btn" id="gate-btn" type="button" data-i18n="hub_gate_b">Otključaj</button>
+      </div>
+      <p class="small" id="gate-msg" data-i18n="hub_gate_n" style="margin-top:10px"></p>
+    </div>
   </div>
-  <p class="small" id="gate-msg" data-i18n="hub_gate_n"></p>
 
-  <div class="countdown" id="cd">
-    <div class="cd-cell"><div class="cd-num" id="cd-d">—</div><div class="cd-lab" data-i18n="cd_days">dana</div></div>
-    <div class="cd-cell"><div class="cd-num" id="cd-h">—</div><div class="cd-lab" data-i18n="cd_hours">sati</div></div>
-    <div class="cd-cell"><div class="cd-num" id="cd-m">—</div><div class="cd-lab" data-i18n="cd_mins">minuta</div></div>
-    <div class="cd-cell"><div class="cd-num" id="cd-s">—</div><div class="cd-lab" data-i18n="cd_secs">sekundi</div></div>
+  <div class="panel">
+    <div class="panel-head">
+      <span class="panel-name" data-i18n="rec_head">Record · Odbrojavanje</span>
+      <span class="panel-tag">25 FPS</span>
+    </div>
+    <div class="mon-screen" style="aspect-ratio:auto;padding:26px 0">
+      <div class="cd-slate"><span>REC 777</span><span id="rec-tc" class="mono">00:00:00:00</span></div>
+      <div class="cd-grid">
+        <div class="cd-cell"><div class="cd-num" id="cd-d">—</div><div class="cd-lab" data-i18n="cd_days">dana</div></div>
+        <div class="cd-cell"><div class="cd-num" id="cd-h">—</div><div class="cd-lab" data-i18n="cd_hours">sati</div></div>
+        <div class="cd-cell"><div class="cd-num" id="cd-m">—</div><div class="cd-lab" data-i18n="cd_mins">min</div></div>
+        <div class="cd-cell"><div class="cd-num" id="cd-s">—</div><div class="cd-lab" data-i18n="cd_secs">sek</div></div>
+      </div>
+    </div>
+    <div class="mon-bar">
+      <span class="tc dim mono" id="cd-foot" data-i18n="cd_foot"></span>
+      <span class="tally"></span>
+    </div>
   </div>
-  <p class="cd-foot" id="cd-foot" data-i18n="cd_foot"></p>
 
   <div id="vault" class="locked">
 
     <div class="stats" id="stats"></div>
 
-    <section id="plan">
-      <p class="kicker" data-i18n="tl_kick">Plan</p>
-      <h2 data-i18n="tl_h">Od danas do 28. svibnja</h2>
-      <p class="dek" data-i18n="tl_lead"></p>
-      <div class="tl" id="timeline"></div>
-    </section>
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-name" data-i18n="tl_kick">Timeline · plan</span>
+        <span class="panel-tag">10 EVENTS</span>
+      </div>
+      <div class="panel-body" style="padding-bottom:6px">
+        <h2 data-i18n="tl_h">Od danas do 28. svibnja</h2>
+        <p class="dek" data-i18n="tl_lead"></p>
+      </div>
+      <div class="tlwrap">
+        <div class="tl-head">V1 · PRODUCTION</div>
+        <div class="tl-track" id="timeline"></div>
+      </div>
+    </div>
 
-    <section id="djs">
-      <p class="kicker" data-i18n="dj_kick">Prijave</p>
-      <h2 data-i18n="dj_h">Tko se javio</h2>
-      <p class="dek" data-i18n="dj_lead"></p>
-      <table class="tbl">
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-name" data-i18n="dj_kick">Bin · prijave</span>
+        <span class="panel-tag">DJ APPLICATIONS</span>
+      </div>
+      <div class="panel-body" style="padding-bottom:6px">
+        <h2 data-i18n="dj_h">Tko se javio</h2>
+        <p class="dek" data-i18n="dj_lead"></p>
+      </div>
+      <table class="bin">
         <thead><tr>
           <th data-i18n="th_name">Ime</th>
           <th class="hide-s" data-i18n="th_dept">Odjel</th>
@@ -76,13 +109,18 @@
         </tr></thead>
         <tbody id="apps-body"></tbody>
       </table>
-    </section>
+    </div>
 
-    <section id="budget">
-      <p class="kicker" data-i18n="budget_kick">Brojke</p>
-      <h2 data-i18n="budget_h">Budžet</h2>
-      <p class="dek" data-i18n="budget_lead"></p>
-      <table class="tbl">
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-name" data-i18n="budget_kick">Bin · brojke</span>
+        <span class="panel-tag">EUR</span>
+      </div>
+      <div class="panel-body" style="padding-bottom:6px">
+        <h2 data-i18n="budget_h">Budžet</h2>
+        <p class="dek" data-i18n="budget_lead"></p>
+      </div>
+      <table class="bin">
         <thead><tr>
           <th data-i18n="th_item">Stavka</th>
           <th data-i18n="th_amount">Iznos</th>
@@ -90,53 +128,54 @@
         </tr></thead>
         <tbody id="budget-body"></tbody>
       </table>
-    </section>
+    </div>
 
-    <section id="editing">
-      <p class="kicker" data-i18n="edit_kick">Uređivanje</p>
-      <h2 data-i18n="edit_h">Kako se ovo mijenja</h2>
-      <p data-i18n="edit_p1"></p>
-      <p data-i18n="edit_p2"></p>
-      <div class="btnrow">
-        <a class="btn" id="edit-link" href="#" target="_blank" rel="noopener" data-i18n="edit_btn">Otvori datoteku na GitHubu</a>
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-name" data-i18n="edit_kick">Uređivanje</span>
+        <span class="panel-tag">data/event.json</span>
       </div>
-    </section>
-
+      <div class="panel-body">
+        <h2 data-i18n="edit_h">Kako se ovo mijenja</h2>
+        <p data-i18n="edit_p1"></p>
+        <p data-i18n="edit_p2"></p>
+        <div class="btnrow">
+          <a class="btn" id="edit-link" href="#" target="_blank" rel="noopener" data-i18n="edit_btn">Otvori na GitHubu</a>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="foot">
     <div data-i18n="foot_1"></div>
     <div data-i18n="foot_2"></div>
   </div>
-
 </div>
 
 <script src="i18n.js"></script>
 <script src="app.js"></script>
 <script>
-/* A curtain, not a lock. Said plainly on the page itself. */
 const GATE = "sedam";
-
 function openVault() {
   document.getElementById("vault").classList.remove("locked");
-  try { sessionStorage.setItem("nova777_gate", "1"); } catch (e) {}
+  try { sessionStorage.setItem("nova777_gate","1"); } catch (e) {}
 }
-
 document.getElementById("gate-btn").addEventListener("click", () => {
-  const v = (document.getElementById("gate-in").value || "").trim().toLowerCase();
+  const v = (document.getElementById("gate-in").value||"").trim().toLowerCase();
   if (v === GATE) { openVault(); document.getElementById("gate-msg").textContent = ""; }
   else { document.getElementById("gate-msg").textContent = t("hub_wrong"); }
 });
 document.getElementById("gate-in").addEventListener("keydown", e => {
   if (e.key === "Enter") document.getElementById("gate-btn").click();
 });
-try { if (sessionStorage.getItem("nova777_gate") === "1") openVault(); } catch (e) {}
-
-document.addEventListener("langchange", () => {
+try { if (sessionStorage.getItem("nova777_gate")==="1") openVault(); } catch (e) {}
+function setEditLink() {
   const repo = (DATA && DATA.event && DATA.event.repo) || "markoboskoauroville/NOVA_TV_777";
   document.getElementById("edit-link").href =
-    "https://github.com/" + repo + "/edit/main/data/event.json";
-});
+    "https://github.com/"+repo+"/edit/main/data/event.json";
+}
+document.addEventListener("langchange", setEditLink);
+setEditLink();
 </script>
 </body>
 </html>

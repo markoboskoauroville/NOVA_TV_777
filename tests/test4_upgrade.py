@@ -13,10 +13,10 @@ with sync_playwright() as p:
     print("RETURNING VISITOR — language preference already on disk")
     pg=ctx.new_page(); pg.goto("http://localhost:8778/index.html"); pg.wait_for_timeout(700)
     pg.click('.langswitch button[data-lang="en"]'); pg.wait_for_timeout(400)
-    ck("chose EN", "Twelve hours" in pg.inner_text("h1.hero-title"))
+    ck("chose EN", "twelve hours" in pg.inner_text('[data-i18n="hero_title"]').lower())
     pg.reload(); pg.wait_for_timeout(900)
-    ck("EN survives a reload (value, not default)", "Twelve hours" in pg.inner_text("h1.hero-title"),
-       pg.inner_text("h1.hero-title")[:34])
+    ck("EN survives a reload (value, not default)", "twelve hours" in pg.inner_text('[data-i18n="hero_title"]').lower(),
+       pg.inner_text('[data-i18n="hero_title"]')[:34])
     ck("switch shows EN as pressed", pg.get_attribute('.langswitch button[data-lang="en"]',"aria-pressed")=="true")
     pg.goto("http://localhost:8778/hub.html"); pg.wait_for_timeout(800)
     ck("preference carries across pages", pg.get_attribute("html","lang")=="en")
@@ -27,8 +27,8 @@ with sync_playwright() as p:
     pg.goto("http://localhost:8778/index.html")
     pg.evaluate("localStorage.setItem('nova777_lang','klingon')")
     pg.reload(); pg.wait_for_timeout(900)
-    ck("falls back to HR, does not render [key] markers", "Dvanaest sati" in pg.inner_text("h1.hero-title"),
-       pg.inner_text("h1.hero-title")[:34])
+    ck("falls back to HR, does not render [key] markers", "dvanaest sati" in pg.inner_text('[data-i18n="hero_title"]').lower(),
+       pg.inner_text('[data-i18n="hero_title"]')[:34])
     import re
     ck("no untranslated markers anywhere", not re.search(r'\[[a-z0-9_]{3,}\]', pg.inner_text("body")))
     pg.close()
@@ -44,19 +44,19 @@ with sync_playwright() as p:
     open("/tmp/ugly/data/event.json","w").write(json.dumps(old))
     pg=ctx.new_page(); errs=[]; pg.on("pageerror", lambda e: errs.append(str(e)))
     pg.goto("http://localhost:8778/index.html"); pg.wait_for_timeout(900)
-    ck("12 slots still render from the old shape", pg.locator("#slots .slot").count()==12,
-       pg.locator("#slots .slot").count())
+    ck("12 slots still render from the old shape", pg.locator("#slots .clip").count()==12,
+       pg.locator("#slots .clip").count())
     ck("missing genre_en falls back to Croatian, not to blank-with-error", not errs, errs[:2])
     pg.click('.langswitch button[data-lang="en"]'); pg.wait_for_timeout(400)
-    ck("EN on old data does not crash", pg.locator("#slots .slot").count()==12)
+    ck("EN on old data does not crash", pg.locator("#slots .clip").count()==12)
     ck("missing status defaults to a real pill, not undefined",
        "undefined" not in pg.inner_text("#slots").lower(), "")
     pg.close()
     pg=ctx.new_page(); errs2=[]; pg.on("pageerror", lambda e: errs2.append(str(e)))
     pg.goto("http://localhost:8778/hub.html"); pg.wait_for_timeout(600)
     pg.fill("#gate-in","sedam"); pg.click("#gate-btn"); pg.wait_for_timeout(400)
-    ck("hub renders old-shape timeline", pg.locator("#timeline .tl-row").count()==10,
-       pg.locator("#timeline .tl-row").count())
+    ck("hub renders old-shape timeline", pg.locator("#timeline .clip").count()==10,
+       pg.locator("#timeline .clip").count())
     ck("missing repo falls back to a real edit URL",
        "NOVA_TV_777/edit/main/data/event.json" in (pg.get_attribute("#edit-link","href") or ""),
        pg.get_attribute("#edit-link","href"))
@@ -68,8 +68,8 @@ with sync_playwright() as p:
     pg=ctx.new_page(); pg.goto("http://localhost:8778/hub.html"); pg.wait_for_timeout(700)
     pg.fill("#gate-in","sedam"); pg.click("#gate-btn"); pg.wait_for_timeout(250)
     pg.fill("#gate-in","sedam"); pg.click("#gate-btn"); pg.wait_for_timeout(250)
-    ck("unlocking twice leaves 10 rows, not 20", pg.locator("#timeline .tl-row").count()==10,
-       pg.locator("#timeline .tl-row").count())
+    ck("unlocking twice leaves 10 rows, not 20", pg.locator("#timeline .clip").count()==10,
+       pg.locator("#timeline .clip").count())
     ck("still unlocked", "locked" not in (pg.get_attribute("#vault","class") or ""))
     b.close()
 print("\nFAILURES:", len(fails), fails)

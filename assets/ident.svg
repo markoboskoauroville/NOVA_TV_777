@@ -1,0 +1,172 @@
+<svg viewBox="0 0 1400 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ident-title">
+  <title id="ident-title">Seven colour bars, counted from one to seven</title>
+  <style>
+@keyframes ibar1 {
+  0%     { opacity:0; transform:translateX(0) scaleX(1); }
+  0.0%  { opacity:0; transform:translateX(0) scaleX(1); }
+  0.01% { opacity:1; transform:translateX(0) scaleX(1); }
+  69.496% { opacity:1; transform:translateX(0) scaleX(1); animation-timing-function:cubic-bezier(.72,.02,.24,1); }
+  100%   { opacity:1; transform:translateX(0px) scaleX(0.1428571); }
+}
+@keyframes inum1 {
+  0%     { opacity:0; transform:translate(700px,292px) scale(1); }
+  0.0%  { opacity:0; transform:translate(700px,292px) scale(1); }
+  0.01% { opacity:1; transform:translate(700px,292px) scale(1); }
+  9.0186%  { opacity:1; transform:translate(700px,292px) scale(1); }
+  9.0286% { opacity:0; transform:translate(700px,292px) scale(1); animation-timing-function:cubic-bezier(.72,.02,.24,1); }
+  88.0% { opacity:0; transform:translate(100px,470px) scale(0.20); }
+  94.0% { opacity:1; transform:translate(100px,470px) scale(0.20); }
+  100%   { opacity:1; transform:translate(100px,470px) scale(0.20); }
+}
+.ident.run .ib1{animation:ibar1 3.77s linear both}
+.ident.run .in1{animation:inum1 3.77s linear both}
+.ident.static .ib1{opacity:1;transform:translateX(0px) scaleX(0.1428571)}
+.ident.static .in1{opacity:1;transform:translate(100px,470px) scale(0.20)}
+@keyframes ibar2 {
+  0%     { opacity:0; transform:translateX(0) scaleX(1); }
+  9.0186%  { opacity:0; transform:translateX(0) scaleX(1); }
+  9.0286% { opacity:1; transform:translateX(0) scaleX(1); }
+  69.496% { opacity:1; transform:translateX(0) scaleX(1); animation-timing-function:cubic-bezier(.72,.02,.24,1); }
+  100%   { opacity:1; transform:translateX(200px) scaleX(0.1428571); }
+}
+@keyframes inum2 {
+  0%     { opacity:0; transform:translate(700px,292px) scale(1); }
+  9.0186%  { opacity:0; transform:translate(700px,292px) scale(1); }
+  9.0286% { opacity:1; transform:translate(700px,292px) scale(1); }
+  18.0371%  { opacity:1; transform:translate(700px,292px) scale(1); }
+  18.0471% { opacity:0; transform:translate(700px,292px) scale(1); animation-timing-function:cubic-bezier(.72,.02,.24,1); }
+  88.0% { opacity:0; transform:translate(300px,470px) scale(0.20); }
+  94.0% { opacity:1; transform:translate(300px,470px) scale(0.20); }
+  100%   { opacity:1; transform:translate(300px,470px) scale(0.20); }
+}
+.ident.run .ib2{animation:ibar2 3.77s linear both}
+.ident.run .in2{animation:inum2 3.77s linear both}
+.ident.static .ib2{opacity:1;transform:translateX(200px) scaleX(0.1428571)}
+.ident.static .in2{opacity:1;transform:translate(300px,470px) scale(0.20)}
+@keyframes ibar3 {
+  0%     { opacity:0; transform:translateX(0) scaleX(1); }
+  18.0371%  { opacity:0; transform:translateX(0) scaleX(1); }
+  18.0471% { opacity:1; transform:translateX(0) scaleX(1); }
+  69.496% { opacity:1; transform:translateX(0) scaleX(1); animation-timing-function:cubic-bezier(.72,.02,.24,1); }
+  100%   { opacity:1; transform:translateX(400px) scaleX(0.1428571); }
+}
+@keyframes inum3 {
+  0%     { opacity:0; transform:translate(700px,292px) scale(1); }
+  18.0371%  { opacity:0; transform:translate(700px,292px) scale(1); }
+  18.0471% { opacity:1; transform:translate(700px,292px) scale(1); }
+  27.0557%  { opacity:1; transform:translate(700px,292px) scale(1); }
+  27.0657% { opacity:0; transform:translate(700px,292px) scale(1); animation-timing-function:cubic-bezier(.72,.02,.24,1); }
+  88.0% { opacity:0; transform:translate(500px,470px) scale(0.20); }
+  94.0% { opacity:1; transform:translate(500px,470px) scale(0.20); }
+  100%   { opacity:1; transform:translate(500px,470px) scale(0.20); }
+}
+.ident.run .ib3{animation:ibar3 3.77s linear both}
+.ident.run .in3{animation:inum3 3.77s linear both}
+.ident.static .ib3{opacity:1;transform:translateX(400px) scaleX(0.1428571)}
+.ident.static .in3{opacity:1;transform:translate(500px,470px) scale(0.20)}
+@keyframes ibar4 {
+  0%     { opacity:0; transform:translateX(0) scaleX(1); }
+  27.0557%  { opacity:0; transform:translateX(0) scaleX(1); }
+  27.0657% { opacity:1; transform:translateX(0) scaleX(1); }
+  69.496% { opacity:1; transform:translateX(0) scaleX(1); animation-timing-function:cubic-bezier(.72,.02,.24,1); }
+  100%   { opacity:1; transform:translateX(600px) scaleX(0.1428571); }
+}
+@keyframes inum4 {
+  0%     { opacity:0; transform:translate(700px,292px) scale(1); }
+  27.0557%  { opacity:0; transform:translate(700px,292px) scale(1); }
+  27.0657% { opacity:1; transform:translate(700px,292px) scale(1); }
+  36.0743%  { opacity:1; transform:translate(700px,292px) scale(1); }
+  36.0843% { opacity:0; transform:translate(700px,292px) scale(1); animation-timing-function:cubic-bezier(.72,.02,.24,1); }
+  88.0% { opacity:0; transform:translate(700px,470px) scale(0.20); }
+  94.0% { opacity:1; transform:translate(700px,470px) scale(0.20); }
+  100%   { opacity:1; transform:translate(700px,470px) scale(0.20); }
+}
+.ident.run .ib4{animation:ibar4 3.77s linear both}
+.ident.run .in4{animation:inum4 3.77s linear both}
+.ident.static .ib4{opacity:1;transform:translateX(600px) scaleX(0.1428571)}
+.ident.static .in4{opacity:1;transform:translate(700px,470px) scale(0.20)}
+@keyframes ibar5 {
+  0%     { opacity:0; transform:translateX(0) scaleX(1); }
+  36.0743%  { opacity:0; transform:translateX(0) scaleX(1); }
+  36.0843% { opacity:1; transform:translateX(0) scaleX(1); }
+  69.496% { opacity:1; transform:translateX(0) scaleX(1); animation-timing-function:cubic-bezier(.72,.02,.24,1); }
+  100%   { opacity:1; transform:translateX(800px) scaleX(0.1428571); }
+}
+@keyframes inum5 {
+  0%     { opacity:0; transform:translate(700px,292px) scale(1); }
+  36.0743%  { opacity:0; transform:translate(700px,292px) scale(1); }
+  36.0843% { opacity:1; transform:translate(700px,292px) scale(1); }
+  45.0928%  { opacity:1; transform:translate(700px,292px) scale(1); }
+  45.1028% { opacity:0; transform:translate(700px,292px) scale(1); animation-timing-function:cubic-bezier(.72,.02,.24,1); }
+  88.0% { opacity:0; transform:translate(900px,470px) scale(0.20); }
+  94.0% { opacity:1; transform:translate(900px,470px) scale(0.20); }
+  100%   { opacity:1; transform:translate(900px,470px) scale(0.20); }
+}
+.ident.run .ib5{animation:ibar5 3.77s linear both}
+.ident.run .in5{animation:inum5 3.77s linear both}
+.ident.static .ib5{opacity:1;transform:translateX(800px) scaleX(0.1428571)}
+.ident.static .in5{opacity:1;transform:translate(900px,470px) scale(0.20)}
+@keyframes ibar6 {
+  0%     { opacity:0; transform:translateX(0) scaleX(1); }
+  45.0928%  { opacity:0; transform:translateX(0) scaleX(1); }
+  45.1028% { opacity:1; transform:translateX(0) scaleX(1); }
+  69.496% { opacity:1; transform:translateX(0) scaleX(1); animation-timing-function:cubic-bezier(.72,.02,.24,1); }
+  100%   { opacity:1; transform:translateX(1000px) scaleX(0.1428571); }
+}
+@keyframes inum6 {
+  0%     { opacity:0; transform:translate(700px,292px) scale(1); }
+  45.0928%  { opacity:0; transform:translate(700px,292px) scale(1); }
+  45.1028% { opacity:1; transform:translate(700px,292px) scale(1); }
+  54.1114%  { opacity:1; transform:translate(700px,292px) scale(1); }
+  54.1214% { opacity:0; transform:translate(700px,292px) scale(1); animation-timing-function:cubic-bezier(.72,.02,.24,1); }
+  88.0% { opacity:0; transform:translate(1100px,470px) scale(0.20); }
+  94.0% { opacity:1; transform:translate(1100px,470px) scale(0.20); }
+  100%   { opacity:1; transform:translate(1100px,470px) scale(0.20); }
+}
+.ident.run .ib6{animation:ibar6 3.77s linear both}
+.ident.run .in6{animation:inum6 3.77s linear both}
+.ident.static .ib6{opacity:1;transform:translateX(1000px) scaleX(0.1428571)}
+.ident.static .in6{opacity:1;transform:translate(1100px,470px) scale(0.20)}
+@keyframes ibar7 {
+  0%     { opacity:0; transform:translateX(0) scaleX(1); }
+  54.1114%  { opacity:0; transform:translateX(0) scaleX(1); }
+  54.1214% { opacity:1; transform:translateX(0) scaleX(1); }
+  69.496% { opacity:1; transform:translateX(0) scaleX(1); animation-timing-function:cubic-bezier(.72,.02,.24,1); }
+  100%   { opacity:1; transform:translateX(1200px) scaleX(0.1428571); }
+}
+@keyframes inum7 {
+  0%     { opacity:0; transform:translate(700px,292px) scale(1); }
+  54.1114%  { opacity:0; transform:translate(700px,292px) scale(1); }
+  54.1214% { opacity:1; transform:translate(700px,292px) scale(1); }
+  63.13%  { opacity:1; transform:translate(700px,292px) scale(1); }
+  63.14% { opacity:0; transform:translate(700px,292px) scale(1); animation-timing-function:cubic-bezier(.72,.02,.24,1); }
+  88.0% { opacity:0; transform:translate(1300px,470px) scale(0.20); }
+  94.0% { opacity:1; transform:translate(1300px,470px) scale(0.20); }
+  100%   { opacity:1; transform:translate(1300px,470px) scale(0.20); }
+}
+.ident.run .ib7{animation:ibar7 3.77s linear both}
+.ident.run .in7{animation:inum7 3.77s linear both}
+.ident.static .ib7{opacity:1;transform:translateX(1200px) scaleX(0.1428571)}
+.ident.static .in7{opacity:1;transform:translate(1300px,470px) scale(0.20)}
+  </style>
+  <rect x="0" y="0" width="1400" height="560" fill="#000"/>
+    <rect class="ib ib1" x="0" y="0" width="1400" height="560" fill="#BFBFBF"/>
+    <rect class="ib ib2" x="0" y="0" width="1400" height="560" fill="#BFBF00"/>
+    <rect class="ib ib3" x="0" y="0" width="1400" height="560" fill="#00BFBF"/>
+    <rect class="ib ib4" x="0" y="0" width="1400" height="560" fill="#00BF00"/>
+    <rect class="ib ib5" x="0" y="0" width="1400" height="560" fill="#BF00BF"/>
+    <rect class="ib ib6" x="0" y="0" width="1400" height="560" fill="#BF0000"/>
+    <rect class="ib ib7" x="0" y="0" width="1400" height="560" fill="#2222C8"/>
+    <g class="in in1"><text x="0" y="0" fill="#000000">1</text></g>
+    <g class="in in2"><text x="0" y="0" fill="#000000">2</text></g>
+    <g class="in in3"><text x="0" y="0" fill="#000000">3</text></g>
+    <g class="in in4"><text x="0" y="0" fill="#000000">4</text></g>
+    <g class="in in5"><text x="0" y="0" fill="#FFFFFF">5</text></g>
+    <g class="in in6"><text x="0" y="0" fill="#FFFFFF">6</text></g>
+    <g class="in in7"><text x="0" y="0" fill="#FFFFFF">7</text></g>
+  <g class="ident-chrome">
+    <rect x="0" y="504" width="1400" height="56" fill="#000" opacity=".82"/>
+    <text x="26" y="541" fill="#BFBFBF" font-family="IBM Plex Mono, monospace" font-size="26" letter-spacing="3">SMPTE 75% · 7 BARS · 7 COLOURS</text>
+    <text x="1374" y="541" fill="#BFBFBF" font-family="IBM Plex Mono, monospace" font-size="26" letter-spacing="3" text-anchor="end">27n777</text>
+  </g>
+</svg>

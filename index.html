@@ -4,19 +4,38 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nova TV 777 · 28. 5. 2027.</title>
-<meta name="description" content="Dvanaest sati, dvanaest tajnih DJ-eva, jedna zgrada. Petak 28. svibnja 2027., od 19:00 do 07:00, dvorana Amber, Zagreb.">
+<meta name="description" content="Dvanaest sati, dvanaest tajnih DJ-eva, jedna zgrada. Petak 28. svibnja 2027., 19:00 do 07:00, dvorana Amber, Zagreb.">
+<meta property="og:title" content="Nova TV 777">
+<meta property="og:description" content="27 godina. 7 katova. Od 7 do 7. Petak 28. 5. 2027.">
+<meta property="og:image" content="assets/og.jpg">
+<link rel="icon" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:wght@300;400;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- ══ SMPTE LEADER: seven numbers, seven bars, then the spine ══ -->
+<div class="leader" id="leader">
+  <div class="leader-num">1</div>
+  <div class="leader-bars">
+    <div class="lb"><b>1</b></div><div class="lb"><b>2</b></div><div class="lb"><b>3</b></div>
+    <div class="lb"><b>4</b></div><div class="lb"><b>5</b></div><div class="lb"><b>6</b></div>
+    <div class="lb"><b>7</b></div>
+  </div>
+  <button class="leader-skip" type="button">SKIP</button>
+</div>
+
 <div class="spine"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
-<div class="topbar">
-  <a class="brandmark" href="index.html">NOVA TV <b>777</b></a>
-  <div class="navlinks">
+<div class="menubar"><div class="menubar-in">
+  <div class="mb-left">
+    <img class="mb-logo" id="mb-logo" src="assets/logo.png" alt="Nova TV 27 777" title="Replay">
+    <span class="mb-title">NOVA_TV_777 · SEQ 01 · 28.05.2027</span>
+  </div>
+  <div class="mb-right">
     <a href="#lineup" data-i18n="line_kick">Lineup</a>
     <a href="#apply" data-i18n="nav_apply">Prijava</a>
     <a href="hub.html" data-i18n="nav_hub">Hub</a>
@@ -25,160 +44,317 @@
       <button data-lang="en" aria-pressed="false">EN</button>
     </div>
   </div>
-</div>
+</div></div>
 
 <div class="wrap">
 
-  <div class="hero">
-    <p class="eyebrow" data-i18n="hero_eyebrow">Nova TV · 27 godina · dvorana Amber</p>
-    <p class="triple">777</p>
-    <h1 class="hero-title" data-i18n="hero_title">Dvanaest sati, dvanaest tajnih DJ-eva, jedna zgrada.</h1>
-    <p class="hero-sub" data-i18n="hero_sub">Interni DJ-evi Nove TV.</p>
-    <p class="hero-when" data-i18n="hero_when">Petak 28. 5. 2027. · 19:00 → subota 07:00</p>
+  <!-- ══ SOURCE / RECORD ══ -->
+  <div class="monitors">
+
+    <!-- SOURCE = the crew anthem -->
+    <div class="panel monitor">
+      <div class="panel-head">
+        <span class="panel-name" data-i18n="src_head">Source · Himna ekipe</span>
+        <span class="panel-tag">MP3 48kHz 2CH</span>
+      </div>
+      <div class="mon-screen">
+        <div class="mon-art"><img src="assets/cover.jpg" alt=""></div>
+        <div class="cd-slate">
+          <span>SRC 01</span><span class="tally"></span>
+        </div>
+        <div class="mon-scrim">
+          <span class="mon-l3-name">Nova TV — ekipa</span>
+          <span class="mon-l3-sub">DJ Maniac · Remix</span>
+        </div>
+      </div>
+      <div class="mon-bar">
+        <span class="tc" id="src-tc">00:00:00:00</span>
+        <span class="tc dim" id="src-rem">-00:04:58:00</span>
+      </div>
+
+      <div class="cta">
+        <div class="cta-txt">
+          <span class="cta-h" data-i18n="cta_h">Pritisni play</span>
+          <span class="cta-d" data-i18n="cta_d">Himna ekipe, 4:58.</span>
+        </div>
+        <button class="mcbtn play" id="tp-play" type="button" aria-label="Play">
+          <svg class="ic-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" style="display:none"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        </button>
+      </div>
+
+      <div class="scrub">
+        <div class="wave" id="wave"><div class="wave-cursor" id="wave-cursor"></div></div>
+      </div>
+
+      <div class="transport">
+        <button class="mcbtn" id="tp-start" type="button" aria-label="Go to start">
+          <svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+        <button class="mcbtn" id="tp-back" type="button" aria-label="Back 10s">
+          <svg viewBox="0 0 24 24"><path d="M11 5v14L2 12zM21 5v14l-9-7z"/></svg></button>
+        <button class="mcbtn" id="tp-fwd" type="button" aria-label="Forward 10s">
+          <svg viewBox="0 0 24 24"><path d="M13 5v14l9-7zM3 5v14l9-7z"/></svg></button>
+        <button class="mcbtn" id="tp-end" type="button" aria-label="Go to end">
+          <svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+        <span class="tc dim mono" id="tp-state" style="margin-left:auto" data-i18n="tp_paused">PAUZA</span>
+      </div>
+
+      <div class="vu-rack">
+        <div class="vu-scale"><span>-48</span><span>-24</span><span>-12</span><span>0</span></div>
+        <div class="vu-ch"><div class="vu-track" id="vu-l"></div><span class="vu-lab">L</span></div>
+        <div class="vu-ch"><div class="vu-track" id="vu-r"></div><span class="vu-lab">R</span></div>
+        <div class="vu-meta">
+          <div class="vu-meta-row"><span data-i18n="vu_track">Traka</span><b>NOVA TV — EKIPA</b></div>
+          <div class="vu-meta-row"><span data-i18n="vu_artist">Izvođač</span><b>DJ MANIAC</b></div>
+          <div class="vu-meta-row"><span data-i18n="vu_len">Trajanje</span><b>00:04:58</b></div>
+        </div>
+      </div>
+      <audio id="anthem" src="assets/nova777-anthem.mp3" preload="metadata"></audio>
+    </div>
+
+    <!-- RECORD = the countdown -->
+    <div class="panel monitor">
+      <div class="panel-head">
+        <span class="panel-name" data-i18n="rec_head">Record · Odbrojavanje</span>
+        <span class="panel-tag">25 FPS</span>
+      </div>
+      <div class="mon-screen">
+        <div class="cd-slate"><span>REC 777</span><span id="rec-tc" class="mono">00:00:00:00</span></div>
+        <div class="cd-grid">
+          <div class="cd-cell"><div class="cd-num" id="cd-d">—</div><div class="cd-lab" data-i18n="cd_days">dana</div></div>
+          <div class="cd-cell"><div class="cd-num" id="cd-h">—</div><div class="cd-lab" data-i18n="cd_hours">sati</div></div>
+          <div class="cd-cell"><div class="cd-num" id="cd-m">—</div><div class="cd-lab" data-i18n="cd_mins">min</div></div>
+          <div class="cd-cell"><div class="cd-num" id="cd-s">—</div><div class="cd-lab" data-i18n="cd_secs">sek</div></div>
+        </div>
+        <div class="mon-scrim">
+          <span class="mon-l3-name" data-i18n="hero_title">Dvanaest sati, dvanaest tajnih DJ-eva</span>
+          <span class="mon-l3-sub" data-i18n="hero_when">Petak 28. 5. 2027. · 19:00 → subota 07:00</span>
+        </div>
+      </div>
+      <div class="mon-bar">
+        <span class="tc dim mono" id="cd-foot" data-i18n="cd_foot">do prvog beata</span>
+        <span class="tally"></span>
+      </div>
+      <div class="panel-body">
+        <p class="dek" data-i18n="hero_sub">Interni DJ-evi Nove TV.</p>
+        <div class="btnrow">
+          <a class="btn" href="#apply" data-i18n="nav_apply">Prijava</a>
+          <a class="btn ghost" href="#why" data-i18n="coin_h">Zašto 777</a>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="countdown" id="cd">
-    <div class="cd-cell"><div class="cd-num" id="cd-d">—</div><div class="cd-lab" data-i18n="cd_days">dana</div></div>
-    <div class="cd-cell"><div class="cd-num" id="cd-h">—</div><div class="cd-lab" data-i18n="cd_hours">sati</div></div>
-    <div class="cd-cell"><div class="cd-num" id="cd-m">—</div><div class="cd-lab" data-i18n="cd_mins">minuta</div></div>
-    <div class="cd-cell"><div class="cd-num" id="cd-s">—</div><div class="cd-lab" data-i18n="cd_secs">sekundi</div></div>
+  <!-- ══ THE SEVEN ══ -->
+  <div class="panel" id="why">
+    <div class="panel-head">
+      <span class="panel-name" data-i18n="coin_kick">Colour bars · sedam</span>
+      <span class="panel-tag">SMPTE</span>
+    </div>
+    <div class="panel-body">
+      <h2 data-i18n="coin_h">Zašto 777</h2>
+      <p class="dek" data-i18n="coin_lead"></p>
+      <div class="ledger">
+        <div class="lrow"><i class="lchip"></i><span class="lnum">27</span>
+          <span><span class="lt" data-i18n="c1_t"></span><span class="ld" data-i18n="c1_d"></span></span></div>
+        <div class="lrow"><i class="lchip"></i><span class="lnum">7</span>
+          <span><span class="lt" data-i18n="c2_t"></span><span class="ld" data-i18n="c2_d"></span></span></div>
+        <div class="lrow"><i class="lchip"></i><span class="lnum">7→7</span>
+          <span><span class="lt" data-i18n="c3_t"></span><span class="ld" data-i18n="c3_d"></span></span></div>
+        <div class="lrow"><i class="lchip"></i><span class="lnum">7</span>
+          <span><span class="lt" data-i18n="c4_t"></span><span class="ld" data-i18n="c4_d"></span></span></div>
+        <div class="lrow"><i class="lchip"></i><span class="lnum">PET</span>
+          <span><span class="lt" data-i18n="c5_t"></span><span class="ld" data-i18n="c5_d"></span></span></div>
+        <div class="lrow"><i class="lchip"></i><span class="lnum">12</span>
+          <span><span class="lt" data-i18n="c6_t"></span><span class="ld" data-i18n="c6_d"></span></span></div>
+        <div class="lrow"><i class="lchip"></i><span class="lnum">777</span>
+          <span><span class="lt" data-i18n="c7_t"></span><span class="ld" data-i18n="c7_d"></span></span></div>
+      </div>
+    </div>
   </div>
-  <p class="cd-foot" id="cd-foot" data-i18n="cd_foot">do prvog beata</p>
 
-  <section id="why">
-    <p class="kicker" data-i18n="coin_kick">Aritmetika</p>
-    <h2 data-i18n="coin_h">Zašto baš 777</h2>
-    <p class="dek" data-i18n="coin_lead">Datum nije biran zbog simbolike.</p>
-
-    <div class="ledger">
-      <div class="ledger-row"><span class="ledger-n">27</span>
-        <span><span class="ledger-t" data-i18n="c1_t">27 godina</span><span class="ledger-d" data-i18n="c1_d"></span></span></div>
-      <div class="ledger-row"><span class="ledger-n">7</span>
-        <span><span class="ledger-t" data-i18n="c2_t">7 katova</span><span class="ledger-d" data-i18n="c2_d"></span></span></div>
-      <div class="ledger-row"><span class="ledger-n">7→7</span>
-        <span><span class="ledger-t" data-i18n="c3_t">Od 7 do 7</span><span class="ledger-d" data-i18n="c3_d"></span></span></div>
-      <div class="ledger-row"><span class="ledger-n">7</span>
-        <span><span class="ledger-t" data-i18n="c4_t">7 boja</span><span class="ledger-d" data-i18n="c4_d"></span></span></div>
-      <div class="ledger-row"><span class="ledger-n">PET</span>
-        <span><span class="ledger-t" data-i18n="c5_t">Pada u petak</span><span class="ledger-d" data-i18n="c5_d"></span></span></div>
-      <div class="ledger-row"><span class="ledger-n">12</span>
-        <span><span class="ledger-t" data-i18n="c6_t">12 slotova</span><span class="ledger-d" data-i18n="c6_d"></span></span></div>
-      <div class="ledger-row"><span class="ledger-n">777</span>
-        <span><span class="ledger-t" data-i18n="c7_t">777</span><span class="ledger-d" data-i18n="c7_d"></span></span></div>
+  <!-- ══ CONCEPT ══ -->
+  <div class="panel">
+    <div class="panel-head">
+      <span class="panel-name" data-i18n="con_kick">Koncept</span>
+      <span class="panel-tag">TREATMENT</span>
     </div>
-  </section>
-
-  <section id="concept">
-    <p class="kicker" data-i18n="con_kick">Koncept</p>
-    <h2 data-i18n="con_h">Ekipa iza kamere ide za pult</h2>
-    <p data-i18n="con_p1"></p>
-    <p data-i18n="con_p2"></p>
-    <p data-i18n="con_p3"></p>
-  </section>
-
-  <section id="lineup">
-    <p class="kicker" data-i18n="line_kick">Lineup</p>
-    <h2 data-i18n="line_h">Dvanaest slotova</h2>
-    <p class="dek" data-i18n="line_lead"></p>
-    <div class="slots" id="slots"></div>
-  </section>
-
-  <section id="venue">
-    <p class="kicker" data-i18n="ven_kick">Lokacija</p>
-    <h2 data-i18n="ven_h">Dvorana Amber</h2>
-    <p data-i18n="ven_p"></p>
-  </section>
-
-  <section id="tickets">
-    <p class="kicker" data-i18n="tic_kick">Ulaznice</p>
-    <h2 data-i18n="tic_h">Prodaja još nije otvorena</h2>
-    <p data-i18n="tic_p"></p>
-    <label for="t-email" data-i18n="tic_email">Tvoj email</label>
-    <input type="email" id="t-email" placeholder="ime@primjer.hr">
-    <div class="btnrow"><a class="btn" id="t-btn" href="#" data-i18n="tic_btn">Javi mi kad krene</a></div>
-  </section>
-
-  <section id="apply">
-    <p class="kicker" data-i18n="app_kick">Za ekipu iz kuće</p>
-    <h2 data-i18n="app_h">Prijavi se za slot</h2>
-    <p data-i18n="app_p"></p>
-
-    <label for="f-name" data-i18n="f_name">Ime i prezime</label>
-    <input type="text" id="f-name">
-    <label for="f-dept" data-i18n="f_dept">Odjel</label>
-    <input type="text" id="f-dept">
-    <label for="f-pseu" data-i18n="f_pseu">DJ pseudonim</label>
-    <input type="text" id="f-pseu">
-    <label for="f-genre" data-i18n="f_genre">Žanr</label>
-    <input type="text" id="f-genre">
-    <label for="f-slot" data-i18n="f_slot">Željeni termin</label>
-    <select id="f-slot"></select>
-    <label for="f-note" data-i18n="f_note">Napomena</label>
-    <textarea id="f-note"></textarea>
-
-    <div class="btnrow">
-      <button class="btn" id="f-copy" data-i18n="f_copy">Kopiraj prijavu</button>
-      <a class="btn ghost" id="f-mail" href="#" data-i18n="f_mail">Pošalji mailom</a>
+    <div class="panel-body">
+      <h2 data-i18n="con_h">Ekipa iza kamere ide za pult</h2>
+      <p data-i18n="con_p1"></p>
+      <p data-i18n="con_p2"></p>
+      <p data-i18n="con_p3"></p>
     </div>
-  </section>
+  </div>
+
+  <!-- ══ LINEUP AS TIMELINE ══ -->
+  <div class="panel" id="lineup">
+    <div class="panel-head">
+      <span class="panel-name" data-i18n="line_kick">Timeline · lineup</span>
+      <span class="panel-tag">12 × 01:00:00</span>
+    </div>
+    <div class="panel-body" style="padding-bottom:6px">
+      <h2 data-i18n="line_h">Dvanaest slotova</h2>
+      <p class="dek" data-i18n="line_lead"></p>
+    </div>
+    <div class="tlwrap">
+      <div class="tl-head">A1 · DJ SET</div>
+      <div class="tl-ruler" id="tl-ruler"></div>
+      <div class="tl-track" id="slots"></div>
+    </div>
+  </div>
+
+  <!-- ══ VENUE / STUDIO ══ -->
+  <div class="panel" id="venue">
+    <div class="panel-head">
+      <span class="panel-name" data-i18n="ven_kick">Lokacija · floor plan</span>
+      <span class="panel-tag">STUDIO</span>
+    </div>
+    <div class="panel-body">
+      <h2 data-i18n="ven_h">Dvorana Amber</h2>
+      <p data-i18n="ven_p"></p>
+      <svg class="studio" viewBox="0 0 620 260" role="img" aria-label="Amber hall floor plan">
+        <defs>
+          <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#E8A64B" stop-opacity=".34"/>
+            <stop offset="100%" stop-color="#E8A64B" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="620" height="260" fill="#08080A"/>
+        <g stroke="#1E1E22" stroke-width="1">
+          <path d="M0 40h620M0 80h620M0 120h620M0 160h620M0 200h620"/>
+          <path d="M60 0v260M140 0v260M220 0v260M300 0v260M380 0v260M460 0v260M540 0v260"/>
+        </g>
+        <!-- lighting truss -->
+        <rect x="40" y="18" width="540" height="9" fill="#26262A" stroke="#34343A"/>
+        <g>
+          <path d="M120 27 L86 128 L154 128 Z" fill="url(#beam)"/>
+          <path d="M310 27 L268 140 L352 140 Z" fill="url(#beam)"/>
+          <path d="M500 27 L466 128 L534 128 Z" fill="url(#beam)"/>
+        </g>
+        <g fill="#34343A" stroke="#46464E">
+          <rect x="110" y="24" width="20" height="15" rx="2"/>
+          <rect x="300" y="24" width="20" height="15" rx="2"/>
+          <rect x="490" y="24" width="20" height="15" rx="2"/>
+        </g>
+        <circle cx="120" cy="40" r="3.2" fill="#E8A64B"/>
+        <circle cx="310" cy="40" r="3.2" fill="#E8A64B"/>
+        <circle cx="500" cy="40" r="3.2" fill="#E8A64B"/>
+        <!-- DJ booth -->
+        <rect x="248" y="150" width="124" height="40" rx="3" fill="#26262A" stroke="#E8A64B" stroke-width="1.5"/>
+        <circle cx="277" cy="170" r="11" fill="none" stroke="#8C8880" stroke-width="1.5"/>
+        <circle cx="277" cy="170" r="2.5" fill="#8C8880"/>
+        <circle cx="343" cy="170" r="11" fill="none" stroke="#8C8880" stroke-width="1.5"/>
+        <circle cx="343" cy="170" r="2.5" fill="#8C8880"/>
+        <rect x="300" y="162" width="20" height="16" rx="1.5" fill="#1C1C1F" stroke="#46464E"/>
+        <text x="310" y="205" font-family="IBM Plex Mono,monospace" font-size="9" fill="#5D5A54" text-anchor="middle" letter-spacing="1.5">DJ BOOTH</text>
+        <!-- PA stacks -->
+        <g fill="#1C1C1F" stroke="#34343A">
+          <rect x="188" y="146" width="26" height="48" rx="2"/>
+          <rect x="406" y="146" width="26" height="48" rx="2"/>
+        </g>
+        <circle cx="201" cy="160" r="7" fill="none" stroke="#46464E"/><circle cx="201" cy="180" r="5" fill="none" stroke="#46464E"/>
+        <circle cx="419" cy="160" r="7" fill="none" stroke="#46464E"/><circle cx="419" cy="180" r="5" fill="none" stroke="#46464E"/>
+        <!-- studio cameras -->
+        <g fill="#26262A" stroke="#46464E">
+          <rect x="52" y="196" width="40" height="24" rx="3"/>
+          <rect x="528" y="196" width="40" height="24" rx="3"/>
+        </g>
+        <path d="M92 202l16-7v22l-16-7z" fill="#34343A" stroke="#46464E"/>
+        <path d="M528 202l-16-7v22l16-7z" fill="#34343A" stroke="#46464E"/>
+        <circle cx="60" cy="192" r="3.4" fill="#FF2A2A"/>
+        <circle cx="560" cy="192" r="3.4" fill="#3A1010" stroke="#521818"/>
+        <path d="M72 220v18M548 220v18" stroke="#34343A" stroke-width="2"/>
+        <path d="M62 240h20M538 240h20" stroke="#34343A" stroke-width="2"/>
+        <text x="72" y="254" font-family="IBM Plex Mono,monospace" font-size="8" fill="#5D5A54" text-anchor="middle" letter-spacing="1">CAM 1</text>
+        <text x="548" y="254" font-family="IBM Plex Mono,monospace" font-size="8" fill="#5D5A54" text-anchor="middle" letter-spacing="1">CAM 2</text>
+        <!-- crowd -->
+        <g fill="#1C1C1F">
+          <circle cx="230" cy="228" r="7"/><circle cx="256" cy="234" r="7"/><circle cx="284" cy="228" r="7"/>
+          <circle cx="310" cy="236" r="7"/><circle cx="336" cy="228" r="7"/><circle cx="364" cy="234" r="7"/>
+          <circle cx="390" cy="228" r="7"/>
+        </g>
+        <text x="310" y="252" font-family="IBM Plex Mono,monospace" font-size="8" fill="#5D5A54" text-anchor="middle" letter-spacing="1.5">DVORANA AMBER · NOVA TV</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ══ TICKETS ══ -->
+  <div class="panel" id="tickets">
+    <div class="panel-head">
+      <span class="panel-name" data-i18n="tic_kick">Ulaznice</span>
+      <span class="panel-tag" data-i18n="tic_tag">NIJE OTVORENO</span>
+    </div>
+    <div class="panel-body">
+      <h2 data-i18n="tic_h">Prodaja još nije otvorena</h2>
+      <p data-i18n="tic_p"></p>
+      <label for="t-email" data-i18n="tic_email">Tvoj email</label>
+      <input type="email" id="t-email" placeholder="ime@primjer.hr">
+      <div class="btnrow"><a class="btn" id="t-btn" href="#" data-i18n="tic_btn">Javi mi kad krene</a></div>
+    </div>
+  </div>
+
+  <!-- ══ APPLY ══ -->
+  <div class="panel" id="apply">
+    <div class="panel-head">
+      <span class="panel-name" data-i18n="app_kick">Za ekipu iz kuće</span>
+      <span class="panel-tag">FORM 01</span>
+    </div>
+    <div class="panel-body">
+      <h2 data-i18n="app_h">Prijavi se za slot</h2>
+      <p data-i18n="app_p"></p>
+      <label for="f-name" data-i18n="f_name">Ime i prezime</label><input type="text" id="f-name">
+      <label for="f-dept" data-i18n="f_dept">Odjel</label><input type="text" id="f-dept">
+      <label for="f-pseu" data-i18n="f_pseu">DJ pseudonim</label><input type="text" id="f-pseu">
+      <label for="f-genre" data-i18n="f_genre">Žanr</label><input type="text" id="f-genre">
+      <label for="f-slot" data-i18n="f_slot">Željeni termin</label><select id="f-slot"></select>
+      <label for="f-note" data-i18n="f_note">Napomena</label><textarea id="f-note"></textarea>
+      <div class="btnrow">
+        <button class="btn" id="f-copy" type="button" data-i18n="f_copy">Kopiraj prijavu</button>
+        <a class="btn ghost" id="f-mail" href="#" data-i18n="f_mail">Pošalji mailom</a>
+      </div>
+    </div>
+  </div>
 
   <div class="foot">
     <div data-i18n="foot_1"></div>
     <div data-i18n="foot_2"></div>
     <div data-i18n="foot_3"></div>
   </div>
-
 </div>
 
 <script src="i18n.js"></script>
 <script src="app.js"></script>
 <script>
-/* application form: compose once, offer copy and mail. No server, nothing stored. */
 function composeApplication() {
   const g = id => (document.getElementById(id).value || "").trim();
-  const slot = g("f-slot") || t("f_any");
-  return [
-    "NOVA TV 777 — " + t("app_h"),
-    "",
-    t("f_name")  + ": " + g("f-name"),
-    t("f_dept")  + ": " + g("f-dept"),
-    t("f_pseu")  + ": " + g("f-pseu"),
-    t("f_genre") + ": " + g("f-genre"),
-    t("f_slot")  + ": " + slot,
-    t("f_note")  + ": " + g("f-note")
-  ].join("\n");
+  return ["NOVA TV 777 — " + t("app_h"), "",
+    t("f_name")+": "+g("f-name"), t("f_dept")+": "+g("f-dept"),
+    t("f_pseu")+": "+g("f-pseu"), t("f_genre")+": "+g("f-genre"),
+    t("f_slot")+": "+(g("f-slot")||t("f_any")), t("f_note")+": "+g("f-note")].join("\n");
 }
-
 document.getElementById("f-copy").addEventListener("click", async e => {
-  e.preventDefault();
   const btn = e.currentTarget, txt = composeApplication();
-  try {
-    await navigator.clipboard.writeText(txt);
-  } catch (err) {
+  try { await navigator.clipboard.writeText(txt); }
+  catch (err) {
     const ta = document.createElement("textarea");
-    ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
+    ta.value = txt; ta.style.position="fixed"; ta.style.opacity="0";
     document.body.appendChild(ta); ta.select();
     try { document.execCommand("copy"); } catch (e2) {}
     document.body.removeChild(ta);
   }
-  const was = btn.textContent;
-  btn.textContent = t("f_copied");
+  const was = btn.textContent; btn.textContent = t("f_copied");
   setTimeout(() => { btn.textContent = was; }, 1600);
 });
-
 document.getElementById("f-mail").addEventListener("click", e => {
   const to = (DATA && DATA.event && DATA.event.contact_email) || "";
-  e.currentTarget.href = "mailto:" + to +
-    "?subject=" + encodeURIComponent("NOVA TV 777 — prijava za DJ slot") +
-    "&body=" + encodeURIComponent(composeApplication());
+  e.currentTarget.href = "mailto:"+to+"?subject="+encodeURIComponent("NOVA TV 777 — prijava za DJ slot")+
+    "&body="+encodeURIComponent(composeApplication());
 });
-
 document.getElementById("t-btn").addEventListener("click", e => {
   const to = (DATA && DATA.event && DATA.event.contact_email) || "";
-  const mine = (document.getElementById("t-email").value || "").trim();
-  e.currentTarget.href = "mailto:" + to +
-    "?subject=" + encodeURIComponent("NOVA TV 777 — javi mi za ulaznice") +
-    "&body=" + encodeURIComponent(mine);
+  e.currentTarget.href = "mailto:"+to+"?subject="+encodeURIComponent("NOVA TV 777 — javi mi za ulaznice")+
+    "&body="+encodeURIComponent((document.getElementById("t-email").value||"").trim());
 });
 </script>
 </body>

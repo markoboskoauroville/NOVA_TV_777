@@ -10,9 +10,22 @@ const DICT = {
   nav_apply:     { hr: "Prijava",          en: "Apply" },
   nav_back:      { hr: "Natrag na party",  en: "Back to party" },
 
+
+  /* ── monitors, transport, meters ────────────────────── */
+  src_head:   { hr: "Source · Himna ekipe",   en: "Source · Crew anthem" },
+  rec_head:   { hr: "Record · Odbrojavanje",  en: "Record · Countdown" },
+  cta_h:      { hr: "Pritisni play",          en: "Press play" },
+  cta_d:      { hr: "Himna ekipe. Četiri minute i 58 sekundi. Pojačaj.",
+                en: "The crew anthem. Four minutes fifty-eight. Turn it up." },
+  tp_playing: { hr: "SVIRA",  en: "PLAYING" },
+  tp_paused:  { hr: "PAUZA",  en: "PAUSED" },
+  vu_track:   { hr: "Traka",    en: "Track" },
+  vu_artist:  { hr: "Izvođač",  en: "Artist" },
+  vu_len:     { hr: "Trajanje", en: "Length" },
+  tic_tag:    { hr: "NIJE OTVORENO", en: "NOT OPEN" },
+  hub_tag:    { hr: "PRIVATNO", en: "PRIVATE" },
+
   /* ── hero ───────────────────────────────────────────── */
-  hero_eyebrow:  { hr: "Nova TV · 27 godina · dvorana Amber",
-                   en: "Nova TV · 27 years · Amber hall" },
   hero_title:    { hr: "Dvanaest sati, dvanaest tajnih DJ-eva, jedna zgrada.",
                    en: "Twelve hours, twelve secret DJs, one building." },
   hero_sub:      { hr: "Interni DJ-evi Nove TV. Pseudonimi do zadnjeg trenutka. Otvoreno za javnost.",
@@ -30,7 +43,7 @@ const DICT = {
   cd_over:       { hr: "bilo je dobro",     en: "it was good" },
 
   /* ── coincidences ───────────────────────────────────── */
-  coin_kick:     { hr: "Aritmetika",  en: "Arithmetic" },
+  coin_kick:     { hr: "Colour bars · sedam", en: "Colour bars · seven" },
   coin_h:        { hr: "Zašto baš 777",  en: "Why 777" },
   coin_lead:     { hr: "Datum nije biran zbog simbolike. Biran je zato što je to rođendan kuće. Sve ostalo se poklopilo samo od sebe, i poklopilo se dovoljno puta da se isplati napisati.",
                    en: "The date was not chosen for its symbolism. It was chosen because it is the station's birthday. Everything else lined up on its own, and it lined up often enough to be worth writing down." },
@@ -44,9 +57,9 @@ const DICT = {
   c3_t: { hr: "Od 7 do 7",            en: "Seven to seven" },
   c3_d: { hr: "Početak u 19:00, kraj u 07:00. Dvanaest sati, dva puta sedam na satu.",
           en: "Start at 19:00, end at 07:00. Twelve hours, seven at both ends of the clock." },
-  c4_t: { hr: "7 boja",               en: "7 colours" },
-  c4_d: { hr: "Duga ima sedam boja i to je cijeli vizualni identitet eventa. Sedam traka na vrhu ove stranice su te boje.",
-          en: "A rainbow has seven, and that is the entire visual identity of the event. The seven bands at the top of this page are those colours." },
+  c4_t: { hr: "7 traka",              en: "7 bars" },
+  c4_d: { hr: "SMPTE test slika ima točno sedam traka u boji. Svaka televizija na svijetu ih emitira, a nitko ih u kući nikad nije prebrojao. Ima ih sedam.",
+          en: "The SMPTE test pattern has exactly seven colour bars. Every television station on earth broadcasts them, and nobody in the building has ever counted them. There are seven." },
   c5_t: { hr: "Pada u petak",         en: "It lands on a Friday" },
   c5_d: { hr: "28. svibnja 2027. je petak. Party završava u subotu ujutro, kad nitko ne mora raditi. Ovo je jedini podatak na popisu koji nitko nije mogao isplanirati.",
           en: "28 May 2027 is a Friday. The party ends on a Saturday morning, when nobody has to be at work. This is the one item on the list that nobody could have planned." },
@@ -73,7 +86,7 @@ const DICT = {
   line_h:    { hr: "Dvanaest slotova", en: "Twelve slots" },
   line_lead: { hr: "Termini se popunjavaju kako stižu prijave. Prazan slot znači da je još slobodan.",
                en: "Slots fill as applications come in. An empty slot means it is still free." },
-  slot_open: { hr: "slobodno", en: "open" },
+  slot_open: { hr: "Tvoj slot?", en: "Your slot?" },
   st_confirmed: { hr: "potvrđen", en: "confirmed" },
   st_held:      { hr: "rezerviran", en: "held" },
   st_open:      { hr: "slobodan", en: "open" },

@@ -21,7 +21,7 @@ with sync_playwright() as p:
     pg,errs=page(b)
     ck("page still renders its text", "777" in pg.inner_text("body") and len(pg.inner_text("body"))>500)
     ck("countdown still runs from the fallback", pg.inner_text("#cd-d").isdigit(), pg.inner_text("#cd-d"))
-    ck("slots degrade to empty, not to garbage", pg.locator("#slots .slot").count()==0)
+    ck("slots degrade to empty, not to garbage", pg.locator("#slots .clip").count()==0)
     ck("no uncaught page error", not errs, errs[:2])
     pg.close(); os.rename(R+"/data/_gone.json", R+"/data/event.json")
 
@@ -37,7 +37,7 @@ with sync_playwright() as p:
     d=json.loads(orig); d["slots"]=[]; d["applications"]=[]; d["timeline"]=[]; d["budget"]=[]
     open(R+"/data/event.json","w").write(json.dumps(d))
     pg,errs=page(b)
-    ck("no slots, no crash", pg.locator("#slots .slot").count()==0)
+    ck("no slots, no crash", pg.locator("#slots .clip").count()==0)
     ck("dropdown still has the no-preference option", pg.locator("#f-slot option").count()==1)
     ck("no uncaught page error", not errs, errs[:2])
     pg.close()
@@ -87,8 +87,8 @@ with sync_playwright() as p:
     for _ in range(12):
         pg.click('.langswitch button[data-lang="en"]'); pg.click('.langswitch button[data-lang="hr"]')
     pg.wait_for_timeout(500)
-    ck("12 rapid language flips leave 10 timeline rows", pg.locator("#timeline .tl-row").count()==10,
-       pg.locator("#timeline .tl-row").count())
+    ck("12 rapid language flips leave 10 timeline rows", pg.locator("#timeline .clip").count()==10,
+       pg.locator("#timeline .clip").count())
     ck("no duplicated rows after flipping", pg.locator("#budget-body tr").count()==7,
        pg.locator("#budget-body tr").count())
     ck("no uncaught page error", not errs, errs[:2])
@@ -98,7 +98,7 @@ with sync_playwright() as p:
     d=json.loads(orig); d["slots"]=d["slots"][:5]
     open(R+"/data/event.json","w").write(json.dumps(d))
     pg,_=page(b)
-    saw = pg.locator("#slots .slot").count()
+    saw = pg.locator("#slots .clip").count()
     ck("slot-count check goes RED when slots are removed (expect 5, not 12)", saw==5, saw)
     pg.close(); open(R+"/data/event.json","w").write(orig)
     b.close()

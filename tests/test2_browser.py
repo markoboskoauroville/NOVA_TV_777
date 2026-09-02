@@ -18,24 +18,28 @@ with sync_playwright() as p:
     ck("no console/page errors", not errs, errs[:3])
     d = pg.inner_text("#cd-d"); h = pg.inner_text("#cd-h")
     ck("countdown days is a number", d.isdigit(), d)
-    ck("countdown days ~272", 268 <= int(d) <= 275, d)
+    from datetime import datetime, timezone, timedelta
+    exp = (datetime(2027,5,28,19,0,tzinfo=timezone(timedelta(hours=2)))
+           - datetime.now(timezone.utc)).days
+    ck(f"countdown days matches the real date ({exp})", abs(int(d)-exp) <= 1, d)
     ck("hours zero-padded 2 chars", len(h)==2, h)
-    ck("12 slots rendered", pg.locator("#slots .slot").count()==12, pg.locator("#slots .slot").count())
+    ck("12 slots rendered", pg.locator("#slots .clip").count()==12, pg.locator("#slots .clip").count())
     ck("7 spine bands", pg.locator(".spine i").count()==7)
-    ck("7 coincidence rows", pg.locator(".ledger-row").count()==7)
+    ck("7 leader bars", pg.locator(".leader-bars .lb").count()==7)
+    ck("7 coincidence rows", pg.locator(".lrow").count()==7)
 
     # language starts HR, swaps to EN, swaps back — in place
-    hr_title = pg.inner_text("h1.hero-title")
-    ck("HR default", "Dvanaest sati" in hr_title, hr_title[:40])
+    hr_title = pg.inner_text('[data-i18n="hero_title"]').lower()
+    ck("HR default", "dvanaest sati" in hr_title, hr_title[:40])
     pg.click('.langswitch button[data-lang="en"]'); pg.wait_for_timeout(500)
-    en_title = pg.inner_text("h1.hero-title")
-    ck("EN swapped, no reload", "Twelve hours" in en_title, en_title[:40])
+    en_title = pg.inner_text('[data-i18n="hero_title"]').lower()
+    ck("EN swapped, no reload", "twelve hours" in en_title, en_title[:40])
     ck("html lang=en", pg.get_attribute("html","lang")=="en")
-    ck("EN slot status word", "open" in pg.inner_text("#slots .slot:first-child .pill").lower(),
-       pg.inner_text("#slots .slot:first-child .pill"))
+    ck("EN slot status word", "open" in pg.inner_text("#slots .clip:first-child .pill").lower(),
+       pg.inner_text("#slots .clip:first-child .pill"))
     ck("EN countdown label", pg.inner_text("[data-i18n=\"cd_days\"]").lower()=="days", pg.inner_text("[data-i18n=\"cd_days\"]"))
     pg.click('.langswitch button[data-lang="hr"]'); pg.wait_for_timeout(400)
-    ck("back to HR", "Dvanaest sati" in pg.inner_text("h1.hero-title"))
+    ck("back to HR", "dvanaest sati" in pg.inner_text('[data-i18n="hero_title"]').lower())
     ck("no untranslated [key] markers", "[" not in pg.inner_text("body").replace("[","",0) or
        not re.search(r'\[[a-z0-9_]{3,}\]', pg.inner_text("body")),
        re.findall(r'\[[a-z0-9_]{3,}\]', pg.inner_text("body"))[:5])
@@ -69,10 +73,10 @@ with sync_playwright() as p:
     pg.fill("#gate-in","sedam"); pg.click("#gate-btn"); pg.wait_for_timeout(400)
     ck("right passphrase unlocks", "locked" not in (pg.get_attribute("#vault","class") or ""))
     ck("4 stat cells", pg.locator("#stats .stat").count()==4)
-    ck("10 timeline rows", pg.locator("#timeline .tl-row").count()==10)
+    ck("10 plan clips", pg.locator("#timeline .clip").count()==10)
     ck("7 budget rows", pg.locator("#budget-body tr").count()==7)
     ck("1 application row", pg.locator("#apps-body tr").count()==1)
-    ck("timeline shows weekday", "petak" in pg.inner_text("#timeline"), pg.inner_text("#timeline .tl-date").split("\n")[0])
+    ck("timeline shows weekday", "petak" in pg.inner_text("#timeline"), pg.inner_text("#timeline .clip-genre").split("\n")[0])
     ck("edit link points at event.json", "edit/main/data/event.json" in (pg.get_attribute("#edit-link","href") or ""),
        pg.get_attribute("#edit-link","href"))
     over2 = pg.evaluate("""() => { const bad=[]; const W=document.documentElement.clientWidth;
