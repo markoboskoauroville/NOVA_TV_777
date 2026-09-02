@@ -61,6 +61,36 @@ implements Range over the assets binding.
 `/hub.html` 307-redirects to `/hub` — Workers Assets drops the extension by
 default. Harmless; links follow it.
 
+## Live on Cloudflare Pages, 2. 9. 2026
+
+**`https://sedamsedamsedam.pages.dev`** — no account name, no GitHub anywhere in
+the response. Created with `wrangler pages project create`, which still works
+from the CLI even though the dashboard no longer offers Pages at all.
+
+A CLI-created Pages project is **Direct Upload**, and Git integration can only be
+attached at creation time in the dashboard. So auto-deploy is restored by
+`.github/workflows/deploy-pages.yml`, which builds and runs `wrangler pages deploy`
+on every push to main. `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` are
+encrypted repo secrets; neither is in the repo.
+
+**Pages does not serve HTTP Range either.** Measured, not assumed: a request for
+1000 bytes of the mp3 returned all 6,829,542 with a 200. So moving off Workers did
+*not* bring the transport buttons back — they stay correctly dimmed on both hosts.
+Only GitHub Pages returns 206. If scrubbing ever matters, the fix is a Worker that
+implements Range over the assets binding, not a change of host.
+
+### A test that lied, 2. 9. 2026
+
+`GET /user/tokens/verify` returned `1000 Invalid API Token` for a perfectly good
+token. That endpoint needs **User**-scope read, which a correctly-narrow
+account-scoped token does not have. The token worked on `/accounts` and
+`/accounts/{id}/pages/projects` immediately. **Verify a token against the endpoint
+you actually intend to use**, never against `/user/tokens/verify`, or a correctly
+minimal token looks broken.
+
+Also: Cloudflare tokens are **not** always 40 characters — this one is 53. Shape
+extraction using `{40}` silently produced an empty file. Use `{40,80}`.
+
 ## Not proven
 
 - Chromium only. Safari on iPhone is code inspection.
