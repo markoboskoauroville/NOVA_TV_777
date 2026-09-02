@@ -125,12 +125,17 @@ function daysLeft() {
 const AudioDeck = {
   el: null, ctx: null, anL: null, anR: null, bufL: null, bufR: null,
   anM: null, freq: null, ident: null,
-  bars: [], wired: false, raf: 0, split: 0, glow: 0,
+  bars: [], wired: false, raf: 0,
+  frame: 0, pulse: 1, fluxAvg: 0, prevLow: null, lastCut: 0,
+  // 300ms floor: high-contrast full-colour frames must not exceed three
+  // changes a second, whatever the track does.
+  MIN_CUT_MS: 300,
 
   init() {
     this.el = document.getElementById("anthem");
     if (!this.el) return;
     this.ident = document.getElementById("ident");
+    this.restIdent();
     this.buildWave();
     this.buildMeters();
     // the deck owns its own waveform. An earlier version left this to an inline
@@ -295,39 +300,71 @@ const AudioDeck = {
     });
   },
 
-  // The ident rests aligned (reads white) whenever nothing is playing, so the
-  // light show is itself the signal that the anthem is running.
+  // ── the frame cutter ───────────────────────────────
+  // Rests on frame 1 whenever nothing plays, so the cutting is itself the
+  // signal that the anthem is running.
   restIdent() {
-    if (!this.ident) return;
-    this.split = 0; this.glow = 0;
-    this.ident.style.setProperty("--sx", "0px");
-    this.ident.style.setProperty("--glow", "0");
-    this.ident.style.setProperty("--pulse", "1");
+    this.fluxAvg = 0; this.prevLow = null; this.lastCut = 0; this.pulse = 1;
+    const f = document.getElementById("frames");
+    if (!f) return;
+    f.style.setProperty("--pulse", "1");
+    const imgs = f.querySelectorAll("img");
+    imgs.forEach((im, i) => im.classList.toggle("on", i === 0));
+    this.frame = 0;
+  },
+
+  cutTo(i) {
+    const f = document.getElementById("frames");
+    if (!f) return;
+    const imgs = f.querySelectorAll("img");
+    if (!imgs.length) return;
+    this.frame = ((i % imgs.length) + imgs.length) % imgs.length;
+    imgs.forEach((im, n) => im.classList.toggle("on", n === this.frame));
   },
 
   driveIdent() {
-    if (!this.ident || !this.anM) return;
+    const f = document.getElementById("frames");
+    if (!f || !this.anM) return;
     this.anM.getByteFrequencyData(this.freq);
     const n = this.freq.length;
-    let bass = 0, hi = 0;
-    const bEnd = Math.max(4, Math.floor(n * 0.08));       // ~low end
+    const bEnd = Math.max(6, Math.floor(n * 0.10));
+
+    let bass = 0;
     for (let i = 0; i < bEnd; i++) bass += this.freq[i];
     bass /= bEnd * 255;
-    for (let i = Math.floor(n * 0.45); i < n; i++) hi += this.freq[i];
-    hi /= (n - Math.floor(n * 0.45)) * 255;
 
-    // Attack fast, release slow — a light desk, not a jitter.
-    // The rings are SVG children, so a CSS translate here is in USER units
-    // (viewBox 1024), not screen px: at ~340px wide, 1 unit is a third of a
-    // pixel. Hence the large multiplier, capped so the rings stay in the frame.
-    const tSplit = Math.min(148, Math.pow(Math.max(0, bass - 0.14), 1.1) * 235);
-    this.split += (tSplit - this.split) * (tSplit > this.split ? 0.55 : 0.10);
-    const tGlow = Math.min(1, hi * 2.1);
-    this.glow += (tGlow - this.glow) * (tGlow > this.glow ? 0.5 : 0.08);
+    // scale tracks the bass continuously — the rhythm shows between cuts too
+    const target = 1 + Math.min(0.13, Math.max(0, bass - 0.12) * 0.5);
+    this.pulse += (target - this.pulse) * (target > this.pulse ? 0.6 : 0.12);
+    f.style.setProperty("--pulse", this.pulse.toFixed(4));
 
-    this.ident.style.setProperty("--sx", this.split.toFixed(1) + "px");
-    this.ident.style.setProperty("--glow", this.glow.toFixed(3));
-    this.ident.style.setProperty("--pulse", (1 + Math.min(0.06, bass * 0.09)).toFixed(4));
+    // SPECTRAL FLUX, not absolute level. This track is heavily limited — its
+    // bass sits near the ceiling almost continuously, so "louder than average"
+    // fired twice in twelve seconds. Flux measures how much the low end just
+    // CHANGED, which is what a kick actually is.
+    let flux = 0;
+    if (this.prevLow) {
+      for (let i = 0; i < bEnd; i++) {
+        const d = this.freq[i] - this.prevLow[i];
+        if (d > 0) flux += d;
+      }
+      flux /= bEnd * 255;
+    }
+    if (!this.prevLow) this.prevLow = new Uint8Array(bEnd);
+    for (let i = 0; i < bEnd; i++) this.prevLow[i] = this.freq[i];
+
+    this.fluxAvg += (flux - this.fluxAvg) * 0.20;
+    const now = performance.now();
+    const since = now - this.lastCut;
+    const onset = flux > this.fluxAvg * 1.6 && flux > 0.012;
+
+    // and a floor on stillness: a quiet passage should not freeze the picture
+    if ((onset || since > 1100) && since > this.MIN_CUT_MS) {
+      this.lastCut = now;
+      const imgs = f.querySelectorAll("img");
+      const step = 1 + Math.floor(Math.random() * (imgs.length - 1));
+      this.cutTo(this.frame + step);
+    }
   },
 
   loop() {
@@ -479,7 +516,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const lg = document.getElementById("mb-logo");
   if (lg) lg.addEventListener("click", replayLeader);
   const sk = document.getElementById("ident-skip");
-  if (sk) sk.addEventListener("click", () => {
+  if (sk) sk.addEventListener("click", (ev) => {
+    ev.preventDefault();
     if (leaderRunning()) {
       const s = document.querySelector(".leader-skip");
       if (s) s.click();

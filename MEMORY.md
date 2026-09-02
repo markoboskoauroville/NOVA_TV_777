@@ -91,6 +91,38 @@ minimal token looks broken.
 Also: Cloudflare tokens are **not** always 40 characters — this one is 53. Shape
 extraction using `{40}` silently produced an empty file. Use `{40,80}`.
 
+## The ident, final form (2. 9. 2026)
+
+Six of Baba's own logo variants, hard-cut on the beat, **inside the Source
+monitor** where the cover art used to be — not at the top of the page. Two
+earlier attempts were rejected and both are worth remembering:
+
+1. **Three tinted copies of the mark, screened.** Gave the overlapping RGB rings
+   of the artwork, but the numerals became three illegible copies. Small type
+   cannot take channel separation.
+2. **Drawn rings + locked wordmark at the top of the page.** Legible and correct,
+   but too busy, and in the wrong place. "It's not up there, it's down there."
+
+**Onset detection: use spectral flux, not level.** The anthem is heavily limited,
+so its bass sits near the ceiling almost continuously; "louder than its own
+average" fired twice in twelve seconds. Flux — the sum of positive change across
+the low bins — gives 2.3 cuts/sec, median gap 433 ms, all six frames used, and
+zero cuts falling back to the stillness timer.
+
+**A 300 ms floor between cuts is deliberate**, not tuning. These are
+high-contrast full-colour frames; three changes a second is the accepted ceiling
+before flashing becomes a photosensitivity risk. Music sits near 2/sec anyway, so
+the floor never fights the beat — it only catches a loud passage.
+
+### The CSS bug that a passing test hid
+
+`.mon-art img { opacity: .9 }` was written for the single cover image. It has the
+same specificity as `.frames img { opacity: 0 }` and sat later in the file, so it
+won silently: all six frames rendered at 0.9, stacked, and the last in the DOM
+showed. The test said "exactly one frame visible" and passed — because it counted
+the `.on` **class** rather than computed opacity. **Assert what renders, not what
+is labelled.** The test now reads `getComputedStyle(im).opacity`.
+
 ## Not proven
 
 - Chromium only. Safari on iPhone is code inspection.

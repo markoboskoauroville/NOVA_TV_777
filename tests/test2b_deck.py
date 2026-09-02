@@ -70,11 +70,17 @@ with sync_playwright() as p:
        pg.get_attribute("#leader","class"))
 
     print("IDENT")
-    ck("three RGB rings drawn", pg.locator(".ident-rings circle").count()==3)
-    ck("wordmark layer present", pg.locator(".ident-mark").count()==1)
     ck("skip/replay control present", pg.locator("#ident-skip").count()==1)
-    ck("ident rests aligned before play",
-       (pg.eval_on_selector("#ident","e=>getComputedStyle(e).getPropertyValue('--sx').trim()") or "0px") == "0px")
+    ck("the old top ident block is gone", pg.locator(".ident-rings").count()==0)
+
+
+    print("FRAME STACK")
+    ck("six frames present", pg.locator("#frames img").count()==6)
+    vis = pg.evaluate("""() => [...document.querySelectorAll('#frames img')]
+        .filter(im => parseFloat(getComputedStyle(im).opacity) > 0.05).length""")
+    ck("exactly one frame is actually VISIBLE (opacity, not class)", vis==1, f"{vis} visible")
+    ck("resting frame is the first one",
+       pg.eval_on_selector("#frames img","e=>parseFloat(getComputedStyle(e).opacity)>0.05"))
 
     print("DECK")
     ck("waveform drew 120 real bars", pg.locator("#wave span").count()==120,
