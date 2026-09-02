@@ -1,0 +1,15 @@
+# Cloudflare Pages headers. Ignored by GitHub Pages, so both hosts stay happy.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# Images and the anthem change rarely; a week of caching is safe and keeps
+# the 6.8 MB mp3 off the network for repeat visitors.
+/assets/*
+  Cache-Control: public, max-age=604800
+
+# The one file the producers edit. It must never be served stale, or Miro
+# changes a slot and the page keeps showing yesterday's lineup.
+/data/*
+  Cache-Control: no-cache
