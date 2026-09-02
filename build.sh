@@ -8,7 +8,7 @@ set -euo pipefail
 
 rm -rf dist && mkdir -p dist
 
-for f in index.html hub.html style.css app.js i18n.js _headers; do
+for f in index.html hub.html songs.html style.css app.js i18n.js songs.js _headers; do
   cp "$f" dist/
 done
 cp -r assets dist/

@@ -1,0 +1,29 @@
+{
+  "_readme": "Add a song by appending an object here. Put the mp3, a square jpg and a waveform json in assets/. artist_hr / artist_en let a credit differ by language. Keep it valid JSON: no trailing comma after the last song.",
+  "songs": [
+    {
+      "id": "ekipa",
+      "title": "Nova TV — ekipa",
+      "label_hr": "Himna ekipe",
+      "label_en": "Crew anthem",
+      "file": "assets/nova777-anthem.mp3",
+      "art": "assets/frame-01.jpg",
+      "waveform": "assets/waveform.json",
+      "duration": 298.152,
+      "artist_hr": "DJ Maniac",
+      "artist_en": "DJ Maniac"
+    },
+    {
+      "id": "miro",
+      "title": "TIZ PLIZ",
+      "label_hr": "Pjesma za Miru",
+      "label_en": "Miro song",
+      "file": "assets/miro-tizpliz.mp3",
+      "art": "assets/miro-cover.jpg",
+      "waveform": "assets/miro-waveform.json",
+      "duration": 108.84,
+      "artist_hr": "DJ Maniac i buraz",
+      "artist_en": "DJ Maniac and brother"
+    }
+  ]
+}

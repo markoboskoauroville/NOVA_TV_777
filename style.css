@@ -295,6 +295,32 @@ body {
   .clip .pill { justify-self: start; }
 }
 
+/* ══ SONGS ════════════════════════════════════════════ */
+.song-row { display: grid; grid-template-columns: clamp(96px, 30vw, 168px) minmax(0, 1fr);
+  gap: 12px; padding: 12px; align-items: start; }
+.song-row > * { min-width: 0; }
+.song-art { aspect-ratio: 1 / 1; background: #000; border: 1px solid var(--mc-edge);
+  border-radius: 2px; overflow: hidden; }
+.song-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.song-body { display: flex; flex-direction: column; gap: 6px; }
+.song-title { font-family: "Barlow Condensed", sans-serif; font-weight: 700;
+  text-transform: uppercase; font-size: clamp(17px, 4.4vw, 23px); line-height: 1.1;
+  overflow-wrap: anywhere; }
+.song-artist { font-family: "IBM Plex Mono", monospace; font-size: 10px;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--amber);
+  overflow-wrap: anywhere; }
+.song-wave { position: relative; height: 40px; background: var(--mc-well);
+  border: 1px solid var(--mc-edge); border-radius: 2px; display: flex;
+  align-items: flex-end; gap: 1px; padding: 3px 3px; overflow: hidden; margin-top: 2px; }
+.song-wave span { flex: 1 1 0; background: var(--mc-hi); border-radius: 1px 1px 0 0; min-width: 0; }
+.song-wave span.played { background: var(--amber); }
+.song-cursor { position: absolute; top: 0; bottom: 0; width: 1px;
+  background: var(--amber-hi); left: 0; pointer-events: none; }
+.song-foot { display: flex; align-items: center; gap: 10px; }
+.song-foot .tc { font-size: 12px; }
+.song-foot .song-rem { margin-left: auto; }
+.song.is-playing { border-color: #5A431E; border-top-color: var(--amber); }
+
 /* ══ PILLS ═════════════════════════════════════════════ */
 .pill { font-family: "IBM Plex Mono", monospace; font-size: 9px; letter-spacing: .1em;
   text-transform: uppercase; padding: 3px 7px; border-radius: 2px; white-space: nowrap;

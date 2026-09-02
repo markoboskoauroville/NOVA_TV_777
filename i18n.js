@@ -7,6 +7,12 @@ const DICT = {
 
   /* ── chrome ─────────────────────────────────────────── */
   nav_hub:       { hr: "Hub",              en: "Hub" },
+  nav_songs:     { hr: "Pjesme",           en: "Songs" },
+  songs_kick:    { hr: "Audio · pjesme",   en: "Audio · songs" },
+  songs_h:       { hr: "Pjesme",           en: "Songs" },
+  songs_lead:    { hr: "Pjesme napravljene za ovaj event. Svaka ima svoj player. Svira samo jedna odjednom.",
+                   en: "Songs made for this event. Each has its own player. Only one plays at a time." },
+  songs_empty:   { hr: "Još nema pjesama.", en: "No songs yet." },
   nav_apply:     { hr: "Prijava",          en: "Apply" },
   nav_back:      { hr: "Natrag na party",  en: "Back to party" },
 

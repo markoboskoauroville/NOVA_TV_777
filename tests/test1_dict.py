@@ -21,13 +21,13 @@ missing=[m.group(1) for m in re.finditer(r'^\s{2}([a-z0-9_]+):\s*\{(.*?)\}\s*,?\
 ck("every key has both languages", not missing, missing)
 
 used=set()
-for f in ("index.html","hub.html"):
+for f in ("index.html","hub.html","songs.html"):
     used |= set(re.findall(r'data-i18n(?:-html|-ph)?="([a-z0-9_]+)"', open(f).read()))
 runtime={f"st_{s}" for s in ("confirmed","held","open")} | \
         {f"ts_{s}" for s in ("done","active","waiting","blocked")} | \
         {f"as_{s}" for s in ("new","contacted","confirmed","scheduled","declined")} | \
         {"s_apps","s_conf","s_free","s_days","cd_foot","cd_live","cd_over","slot_open",
-         "f_any","f_copied","hub_wrong","tp_playing","tp_paused","ident_replay","ident_skip","app_h","f_name","f_dept","f_pseu","f_genre","f_slot","f_note"}
+         "f_any","f_copied","hub_wrong","tp_playing","tp_paused","ident_replay","ident_skip","songs_empty","app_h","f_name","f_dept","f_pseu","f_genre","f_slot","f_note"}
 used |= runtime
 ck("no key referenced but undefined", not (used-keys), sorted(used-keys))
 ck("no key defined but unused", not (keys-used), sorted(keys-used))
